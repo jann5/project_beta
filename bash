@@ -1,1 +1,1 @@
-npx convex run testEmail:testEmailSending
+npx convex run testEmail:testEmailSending --prod
