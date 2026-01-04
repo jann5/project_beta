@@ -93,6 +93,7 @@ export function LocationMap({
             scrolling="no" 
             marginHeight={0} 
             marginWidth={0} 
+            loading="lazy"
             src={`https://maps.google.com/maps?q=${mapQuery}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
             className={cn(
               "w-full h-full filter grayscale-[0.2] contrast-[1.1] transition-all duration-500",

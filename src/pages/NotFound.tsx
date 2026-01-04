@@ -1,26 +1,71 @@
 import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Home, WifiOff, RefreshCcw } from "lucide-react";
+import { useNavigate } from "react-router";
+import { useEffect, useState } from "react";
 
 export default function NotFound() {
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="min-h-screen flex flex-col"
-    >
+  const navigate = useNavigate();
+  const [isOffline, setIsOffline] = useState(!navigator.onLine);
 
-      
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col items-center justify-center">
-        <div className="max-w-5xl mx-auto relative px-4">
-          <div className="flex items-center justify-center min-h-[200px]">
-            <div className="text-center">
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">404</h1>
-              <p className="text-lg text-gray-600">Page Not Found</p>
-            </div>
+  useEffect(() => {
+    const handleOnline = () => setIsOffline(false);
+    const handleOffline = () => setIsOffline(true);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-background p-4">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-center max-w-md mx-auto space-y-6"
+      >
+        <div className="relative w-32 h-32 mx-auto mb-8">
+          <motion.div
+            className="absolute inset-0 bg-primary/10 rounded-full"
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
+          <div className="absolute inset-0 flex items-center justify-center">
+            {isOffline ? (
+              <WifiOff className="w-16 h-16 text-primary" />
+            ) : (
+              <span className="text-6xl font-bold text-primary">404</span>
+            )}
           </div>
         </div>
-      </div>
-    </motion.div>
+
+        <h1 className="text-3xl font-bold">
+          {isOffline ? "Brak połączenia z internetem" : "Strona nie znaleziona"}
+        </h1>
+        
+        <p className="text-muted-foreground text-lg">
+          {isOffline 
+            ? "Sprawdź swoje połączenie z internetem i spróbuj ponownie."
+            : "Przepraszamy, ale strona której szukasz nie istnieje lub została przeniesiona."}
+        </p>
+
+        <div className="flex gap-4 justify-center pt-4">
+          <Button onClick={() => navigate("/")} size="lg" className="gap-2">
+            <Home className="w-4 h-4" />
+            Wróć na stronę główną
+          </Button>
+          {isOffline && (
+            <Button variant="outline" onClick={() => window.location.reload()} size="lg" className="gap-2">
+              <RefreshCcw className="w-4 h-4" />
+              Odśwież
+            </Button>
+          )}
+        </div>
+      </motion.div>
+    </div>
   );
 }

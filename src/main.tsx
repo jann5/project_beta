@@ -9,6 +9,7 @@ import { BrowserRouter, Route, Routes, useLocation } from "react-router";
 import { ThemeProvider } from "next-themes";
 import "./index.css";
 import "./types/global.d.ts";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 // Lazy load route components for better code splitting
 const Landing = lazy(() => import("./pages/Landing.tsx"));
@@ -21,11 +22,7 @@ const ShareDemo = lazy(() => import("./components/ui/share-dialog-demo.tsx"));
 
 // Simple loading fallback for route transitions
 function RouteLoading() {
-  return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="animate-pulse text-muted-foreground">Loading...</div>
-    </div>
-  );
+  return <LoadingSpinner />;
 }
 
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
