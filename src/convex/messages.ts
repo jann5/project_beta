@@ -17,7 +17,6 @@ export const send = mutation({
     });
 
     // Schedule the email sending action
-    // We use a try-catch block or ensure internal.email exists by fixing the email.ts file
     await ctx.scheduler.runAfter(0, internal.email.sendContactEmail, {
       name: args.name,
       email: args.email,

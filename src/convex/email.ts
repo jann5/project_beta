@@ -28,8 +28,6 @@ export const sendContactEmail = internalAction({
       });
     } catch (error) {
       console.error("Failed to send email:", error);
-      // We don't throw here to avoid failing the mutation if email fails, 
-      // but in a real app you might want to handle this differently.
     }
   },
 });
