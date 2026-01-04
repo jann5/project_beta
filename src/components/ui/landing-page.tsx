@@ -22,7 +22,7 @@ export function DesignAgency() {
       <Navbar />
       <Hero />
       
-      <Suspense fallback={<div className="py-20 flex justify-center"><LoadingSpinner /></div>}>
+      <Suspense fallback={<div className="py-20 flex justify-center"><LoadingSpinner fullScreen={false} /></div>}>
         <About />
         <Whiteboard />
         <Testimonials />

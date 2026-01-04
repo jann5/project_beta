@@ -10,6 +10,7 @@ import { ThemeProvider } from "next-themes";
 import "./index.css";
 import "./types/global.d.ts";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 // Lazy load route components for better code splitting
 const Landing = lazy(() => import("./pages/Landing.tsx"));
@@ -62,18 +63,20 @@ createRoot(document.getElementById("root")!).render(
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <BrowserRouter>
             <RouteSyncer />
-            <Suspense fallback={<RouteLoading />}>
-              <Routes>
-                <Route path="/" element={<Landing />} />
-                <Route path="/gallery" element={<GalleryPage />} />
-                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-                <Route path="/auth" element={<AuthPage redirectAfterAuth="/" />} /> {/* TODO: change redirect after auth to correct page */}
-                <Route path="/map-demo" element={<MapDemo />} />
-                <Route path="/particle-demo" element={<ParticleDemo />} />
-                <Route path="/share-demo" element={<ShareDemo />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
+            <ErrorBoundary>
+              <Suspense fallback={<RouteLoading />}>
+                <Routes>
+                  <Route path="/" element={<Landing />} />
+                  <Route path="/gallery" element={<GalleryPage />} />
+                  <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                  <Route path="/auth" element={<AuthPage redirectAfterAuth="/" />} /> {/* TODO: change redirect after auth to correct page */}
+                  <Route path="/map-demo" element={<MapDemo />} />
+                  <Route path="/particle-demo" element={<ParticleDemo />} />
+                  <Route path="/share-demo" element={<ShareDemo />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
+            </ErrorBoundary>
           </BrowserRouter>
           <Toaster />
         </ThemeProvider>
