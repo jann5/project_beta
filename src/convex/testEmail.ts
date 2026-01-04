@@ -8,7 +8,10 @@ export const testEmailSending = internalAction({
     try {
       const vly = new VlyIntegrations({
         deploymentToken: process.env.VLY_INTEGRATION_KEY || "",
+        debug: true,
       });
+
+      console.log("Testing email with VLY_INTEGRATION_KEY:", process.env.VLY_INTEGRATION_KEY ? "Present" : "Missing");
 
       const result = await vly.email.send({
         to: "hejkatuhejka3@gmail.com",

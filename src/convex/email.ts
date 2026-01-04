@@ -13,9 +13,10 @@ export const sendContactEmail = internalAction({
     try {
       const vly = new VlyIntegrations({
         deploymentToken: process.env.VLY_INTEGRATION_KEY || "",
+        debug: true, // Enable debug logging
       });
 
-      await vly.email.send({
+      const result = await vly.email.send({
         to: "hejkatuhejka3@gmail.com",
         subject: `Nowa wiadomość ze strony od: ${args.name}`,
         text: `Imię i nazwisko: ${args.name}\nEmail: ${args.email}\n\nWiadomość:\n${args.content}`,
@@ -30,6 +31,12 @@ export const sendContactEmail = internalAction({
           </div>
         `,
       });
+
+      console.log("Email send result:", result);
+
+      if (!result.success) {
+        console.error("Email sending failed:", result.error);
+      }
     } catch (error) {
       console.error("Failed to send email:", error);
     }
