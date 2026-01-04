@@ -14,12 +14,15 @@ interface LocationMapProps {
 export function LocationMap({
   className,
   address = "Jesionowa 15, 64-550 Duszniki",
-  locationName = "Sala bankietowa 'Halszka'",
+  locationName = "Sala bankietowa Halszka",
   googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=Sala+bankietowa+Halszka+Jesionowa+15+Duszniki"
 }: LocationMapProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   
   const toggleExpand = () => setIsExpanded(!isExpanded);
+
+  // Simplified query for better compatibility
+  const mapQuery = encodeURIComponent(`${locationName}, ${address}`);
 
   return (
     <div className={cn("relative w-full max-w-3xl mx-auto", className)}>
@@ -90,11 +93,12 @@ export function LocationMap({
             scrolling="no" 
             marginHeight={0} 
             marginWidth={0} 
-            src={`https://maps.google.com/maps?q=${encodeURIComponent(address + " " + locationName)}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+            src={`https://maps.google.com/maps?q=${mapQuery}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
             className={cn(
               "w-full h-full filter grayscale-[0.2] contrast-[1.1] transition-all duration-500",
               !isExpanded && "group-hover:scale-110 group-hover:grayscale-0"
             )}
+            title="Lokalizacja"
           />
           
           {/* Overlay for collapsed state to indicate interactivity */}

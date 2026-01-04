@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, X } from "lucide-react";
 import { Link } from "react-router";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
 const galleryImages = [
   {
@@ -55,6 +56,8 @@ const galleryImages = [
 ];
 
 export default function GalleryPage() {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   return (
     <div className="min-h-screen bg-background p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
@@ -75,7 +78,8 @@ export default function GalleryPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
-              className="group relative aspect-square overflow-hidden rounded-xl bg-muted"
+              className="group relative aspect-square overflow-hidden rounded-xl bg-muted cursor-pointer"
+              onClick={() => setSelectedImage(image.src)}
             >
               <img
                 src={image.src}
@@ -90,6 +94,35 @@ export default function GalleryPage() {
           ))}
         </div>
       </div>
+
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4"
+            onClick={() => setSelectedImage(null)}
+          >
+            <button
+              className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors p-2"
+              onClick={() => setSelectedImage(null)}
+            >
+              <X className="w-8 h-8" />
+              <span className="sr-only">Zamknij</span>
+            </button>
+            <motion.img
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              src={selectedImage}
+              alt="Full screen view"
+              className="max-h-[90vh] max-w-[90vw] object-contain rounded-lg shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
