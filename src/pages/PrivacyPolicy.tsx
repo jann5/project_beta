@@ -48,6 +48,21 @@ export default function PrivacyPolicy() {
               W sprawach związanych z ochroną danych osobowych prosimy o kontakt mailowy pod adresem: kontakt@engleo.pl
             </p>
           </section>
+
+          <section className="space-y-4 mb-8">
+            <h2 className="text-2xl font-semibold">6. Pliki Cookies i Technologie Śledzące</h2>
+            <p className="text-muted-foreground">
+              Serwis wykorzystuje pliki cookies oraz technologię Local Storage wyłącznie w celach technicznych, niezbędnych do prawidłowego funkcjonowania strony, w tym:
+            </p>
+            <ul className="list-disc pl-6 text-muted-foreground space-y-2">
+              <li>Utrzymania sesji użytkownika (logowanie i autoryzacja).</li>
+              <li>Zapamiętywania preferencji wyglądu (tryb jasny/ciemny).</li>
+              <li>Zapewnienia bezpieczeństwa i wydajności serwisu.</li>
+            </ul>
+            <p className="text-muted-foreground mt-4">
+              Nie wykorzystujemy plików cookies do celów reklamowych, marketingowych ani do śledzenia aktywności użytkownika poza naszym serwisem.
+            </p>
+          </section>
         </motion.div>
       </main>
       <Footer />
