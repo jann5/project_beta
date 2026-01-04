@@ -1,11 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Switch = () => {
+interface SwitchProps {
+  checked?: boolean;
+  onCheckedChange?: (checked: boolean) => void;
+}
+
+const Switch = ({ checked, onCheckedChange }: SwitchProps) => {
   return (
     <StyledWrapper>
       <label className="theme-switch">
-        <input type="checkbox" className="theme-switch__checkbox" />
+        <input 
+          type="checkbox" 
+          className="theme-switch__checkbox" 
+          checked={checked}
+          onChange={(e) => onCheckedChange?.(e.target.checked)}
+        />
         <div className="theme-switch__container">
           <div className="theme-switch__clouds" />
           <div className="theme-switch__stars-container">
