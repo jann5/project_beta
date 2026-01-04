@@ -1,7 +1,7 @@
 "use node";
 import { internalAction } from "./_generated/server";
 import { v } from "convex/values";
-import { VlyIntegrations } from "@vly-ai/integrations";
+import { createVlyIntegrations } from "@vly-ai/integrations";
 
 export const sendContactEmail = internalAction({
   args: {
@@ -11,9 +11,9 @@ export const sendContactEmail = internalAction({
   },
   handler: async (ctx, args) => {
     try {
-      const vly = new VlyIntegrations({
+      const vly = createVlyIntegrations({
         deploymentToken: process.env.VLY_INTEGRATION_KEY || "",
-        debug: true, // Enable debug logging
+        debug: true,
       });
 
       const result = await vly.email.send({

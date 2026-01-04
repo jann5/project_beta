@@ -1,12 +1,12 @@
 "use node";
 import { internalAction } from "./_generated/server";
-import { VlyIntegrations } from "@vly-ai/integrations";
+import { createVlyIntegrations } from "@vly-ai/integrations";
 
 export const testEmailSending = internalAction({
   args: {},
   handler: async (ctx) => {
     try {
-      const vly = new VlyIntegrations({
+      const vly = createVlyIntegrations({
         deploymentToken: process.env.VLY_INTEGRATION_KEY || "",
         debug: true,
       });
