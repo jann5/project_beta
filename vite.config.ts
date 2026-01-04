@@ -1,49 +1,36 @@
-import path from "path";
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import viteCompression from "vite-plugin-compression";
+import path from "path"
+import { defineConfig } from "vite"
+import react from "@vitejs/plugin-react"
+import tailwindcss from "@tailwindcss/vite"
+import viteCompression from "vite-plugin-compression"
 
 export default defineConfig({
   plugins: [
     react(),
-    // Gzip compression
+    tailwindcss(),
     viteCompression({
-      algorithm: "gzip",
-      ext: ".gz",
+      algorithm: 'gzip',
+      ext: '.gz',
     }),
-    // Brotli compression
     viteCompression({
-      algorithm: "brotliCompress",
-      ext: ".br",
+      algorithm: 'brotliCompress',
+      ext: '.br',
     }),
   ],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": path.resolve(process.cwd(), "./src"),
     },
   },
   build: {
     rollupOptions: {
       output: {
         manualChunks: {
-          "react-vendor": ["react", "react-dom", "react-router"],
-          "ui-vendor": [
-            "@radix-ui/react-dialog",
-            "@radix-ui/react-slot",
-            "@radix-ui/react-label",
-            "@radix-ui/react-separator",
-            "class-variance-authority",
-            "clsx",
-            "tailwind-merge",
-            "lucide-react",
-            "sonner"
-          ],
-          "motion-vendor": ["framer-motion"],
-          "convex-vendor": ["convex"],
-          "three-vendor": ["three", "@react-three/fiber", "@react-three/drei"],
+          vendor: ['react', 'react-dom', 'react-router'],
+          framer: ['framer-motion'],
+          ui: ['@radix-ui/react-dialog', '@radix-ui/react-slot', 'lucide-react'],
         },
       },
     },
-    chunkSizeWarningLimit: 1000,
   },
-});
+})
