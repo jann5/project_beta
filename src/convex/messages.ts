@@ -1,5 +1,6 @@
 import { mutation } from "./_generated/server";
 import { v } from "convex/values";
+import { internal } from "./_generated/api";
 
 export const send = mutation({
   args: {
@@ -13,6 +14,13 @@ export const send = mutation({
       email: args.email,
       content: args.content,
       status: "new",
+    });
+
+    // Schedule the email sending action
+    await ctx.scheduler.runAfter(0, internal.email.sendContactEmail, {
+      name: args.name,
+      email: args.email,
+      content: args.content,
     });
   },
 });

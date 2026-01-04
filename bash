@@ -1,1 +1,1 @@
-npx convex dev --once && npx tsc -b --noEmit
+node -e 'import("@vly-ai/integrations").then(m => console.log(Object.keys(m)))'
