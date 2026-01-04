@@ -84,8 +84,10 @@ export function DesignAgency() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
+              className="bg-background/10 backdrop-blur-sm p-8 md:p-12 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6 animate-pulse">
+              <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent pointer-events-none" />
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6 animate-pulse relative z-10">
                 <Sparkles className="w-4 h-4" />
                 <span className="font-bold">PIERWSZA LEKCJA (60 MIN) GRATIS!</span>
               </div>

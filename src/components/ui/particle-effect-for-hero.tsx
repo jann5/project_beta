@@ -312,50 +312,40 @@ export const AntiGravityCanvas: React.FC = () => {
     return () => cancelAnimationFrame(frameIdRef.current);
   }, [animate]);
 
-  // Mouse Handlers
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    mouseRef.current = {
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-      isActive: true,
+  // Mouse Handlers - Attached to window to work behind overlays
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      
+      // Calculate mouse position relative to the canvas container
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      // Check if mouse is effectively over the container (even if hovering over z-index content above it)
+      if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
+        mouseRef.current = {
+          x,
+          y,
+          isActive: true,
+        };
+      } else {
+        mouseRef.current.isActive = false;
+      }
     };
-  };
 
-  const handleMouseLeave = () => {
-    mouseRef.current.isActive = false;
-  };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
   return (
     <div 
        ref={containerRef} 
-       className="absolute inset-0 z-0 overflow-hidden cursor-crosshair pointer-events-none"
+       className="absolute inset-0 z-0 overflow-hidden pointer-events-none"
     >
-      {/* Added pointer-events-none to container but we need to capture mouse events. 
-          If we want it to be a background, it shouldn't block clicks.
-          But if it doesn't block clicks, it won't capture mouse events if elements are above it.
-          We can attach mouse listener to window or parent if needed, but for now let's keep it simple.
-          Actually, if we want it to react to mouse, it needs pointer events.
-          But if it has pointer events, it blocks clicks on things behind it (which is nothing since it's background).
-          But it blocks clicks on things *under* it if it was an overlay.
-          Here it is z-0. Content is z-10.
-          So content will receive clicks.
-          The canvas will only receive mouse events if mouse is NOT over content.
-      */}
-      <div 
-        className="absolute inset-0 w-full h-full pointer-events-auto"
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-      >
-        <canvas ref={canvasRef} className="block w-full h-full" />
-      </div>
-      
-      {/* Debug Info Overlay (Hidden in production usually, but cool for tech demos) */}
-      {/* <div className="absolute bottom-4 right-4 pointer-events-none text-xs text-muted-foreground font-mono text-right">
-        <p>{debugInfo.count} entities</p>
-        <p>{debugInfo.fps} FPS</p>
-      </div> */}
+      <canvas ref={canvasRef} className="block w-full h-full" />
     </div>
   );
 };
