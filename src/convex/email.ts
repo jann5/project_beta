@@ -1,7 +1,7 @@
 "use node";
 import { internalAction } from "./_generated/server";
 import { v } from "convex/values";
-import { vly } from "../lib/vly-integrations";
+import { VlyIntegrations } from "@vly-ai/integrations";
 
 export const sendContactEmail = internalAction({
   args: {
@@ -11,6 +11,10 @@ export const sendContactEmail = internalAction({
   },
   handler: async (ctx, args) => {
     try {
+      const vly = new VlyIntegrations({
+        deploymentToken: process.env.VLY_INTEGRATION_KEY || "",
+      });
+
       await vly.email.send({
         to: "hejkatuhejka3@gmail.com",
         subject: `Nowa wiadomość ze strony od: ${args.name}`,
