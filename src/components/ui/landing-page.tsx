@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Switch from "@/components/ui/sky-toggle";
 import { LocationMap } from "@/components/ui/expand-map";
+import { AntiGravityCanvas } from "@/components/ui/particle-effect-for-hero";
 import { useTheme } from "next-themes";
 import { 
   MapPin, 
@@ -50,7 +51,10 @@ export function DesignAgency() {
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
+        <div className="absolute inset-0 z-0">
+            <AntiGravityCanvas />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <motion.div
