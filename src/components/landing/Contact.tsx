@@ -3,13 +3,29 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Phone, Mail, ArrowRight } from "lucide-react";
+import { Phone, Mail, ArrowRight, Copy, Check, PhoneCall } from "lucide-react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 export default function Contact() {
   const sendMessage = useMutation(api.messages.send);
+  const [copied, setCopied] = useState(false);
+  const phoneNumber = "+48 123 456 789";
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(phoneNumber.replace(/\s/g, ''));
+    setCopied(true);
+    toast.success("Numer telefonu został skopiowany!");
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const [contactForm, setContactForm] = useState({
     name: "",
@@ -77,9 +93,60 @@ export default function Contact() {
                 </div>
               </div>
             </div>
-            <Button size="lg" className="w-full max-w-xs rounded-full" onClick={() => window.location.href = 'tel:+48123456789'}>
-              Zadzwoń teraz
-            </Button>
+            
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button size="lg" className="w-full max-w-xs rounded-full group relative overflow-hidden">
+                  <span className="relative z-10 flex items-center gap-2">
+                    <PhoneCall className="w-4 h-4" />
+                    Zadzwoń teraz
+                  </span>
+                  <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md border-none shadow-2xl bg-gradient-to-b from-background to-muted/20">
+                <DialogHeader>
+                  <DialogTitle className="text-center text-2xl font-bold">Skontaktuj się</DialogTitle>
+                </DialogHeader>
+                <div className="flex flex-col items-center justify-center space-y-8 py-6">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-primary/20 rounded-full animate-ping opacity-75" />
+                    <div className="relative p-6 bg-primary/10 rounded-full border-2 border-primary/20">
+                      <Phone className="w-10 h-10 text-primary" />
+                    </div>
+                  </div>
+                  
+                  <div className="text-center space-y-2 w-full">
+                    <p className="text-sm font-medium text-muted-foreground uppercase tracking-widest">Numer telefonu</p>
+                    <div className="flex items-center justify-center gap-3 p-4 bg-muted/50 rounded-2xl border border-border/50">
+                      <span className="text-3xl md:text-4xl font-bold tracking-tight text-foreground tabular-nums">
+                        {phoneNumber}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4 w-full">
+                    <Button 
+                      variant="outline" 
+                      size="lg"
+                      className="gap-2 hover:bg-primary/5 hover:text-primary hover:border-primary/30 transition-all duration-300"
+                      onClick={handleCopy}
+                    >
+                      {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                      {copied ? "Skopiowano" : "Kopiuj"}
+                    </Button>
+                    <Button 
+                      size="lg"
+                      className="gap-2 shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all duration-300"
+                      onClick={() => window.location.href = `tel:${phoneNumber.replace(/\s/g, '')}`}
+                    >
+                      <PhoneCall className="w-4 h-4" />
+                      Zadzwoń
+                    </Button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
           </motion.div>
 
           {/* Contact Form Card */}
