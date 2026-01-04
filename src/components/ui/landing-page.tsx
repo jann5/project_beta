@@ -17,6 +17,7 @@ import {
   CheckCircle2,
   ArrowRight
 } from "lucide-react";
+import { PortfolioGallery } from "@/components/ui/portfolio-gallery";
 
 export function DesignAgency() {
   const { theme, setTheme } = useTheme();
@@ -36,6 +37,7 @@ export function DesignAgency() {
             <div className="hidden md:flex items-center gap-6 text-sm font-medium">
               <a href="#about" className="hover:text-primary transition-colors">O mnie</a>
               <a href="#offer" className="hover:text-primary transition-colors">Oferta</a>
+              <a href="#gallery" className="hover:text-primary transition-colors">Galeria</a>
               <a href="#location" className="hover:text-primary transition-colors">Lokalizacja</a>
               <a href="#contact" className="hover:text-primary transition-colors">Kontakt</a>
             </div>
@@ -149,6 +151,33 @@ export function DesignAgency() {
         </div>
       </section>
 
+      {/* Gallery Section */}
+      <PortfolioGallery 
+        title="Galeria z zajęć"
+        images={[
+          {
+            src: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&h=600&fit=crop&q=80",
+            alt: "Zajęcia grupowe",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1544717305-2782549b5136?w=800&h=600&fit=crop&q=80",
+            alt: "Materiały dydaktyczne",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&h=600&fit=crop&q=80",
+            alt: "Sala lekcyjna",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop&q=80",
+            alt: "Nauka online",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=800&h=600&fit=crop&q=80",
+            alt: "Certyfikaty",
+          },
+        ]}
+      />
+
       {/* Location Section */}
       <section id="location" className="py-20">
         <div className="container mx-auto px-4">
@@ -164,27 +193,8 @@ export function DesignAgency() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             <LocationMap />
-
-            <motion.div
-              whileHover={{ y: -5 }}
-              className="p-8 rounded-2xl bg-card border shadow-sm flex flex-col items-center text-center gap-4"
-            >
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-2">
-                <Globe className="w-8 h-8 text-primary" />
-              </div>
-              <h3 className="font-semibold text-xl">Online</h3>
-              <p className="text-muted-foreground">
-                Więcej informacji na stronie:<br />
-                <a href="https://www.engleo.pl" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                  www.engleo.pl
-                </a>
-              </p>
-              <Button variant="outline" className="w-full mt-auto">
-                Odwiedź stronę
-              </Button>
-            </motion.div>
 
             <motion.div
               whileHover={{ y: -5 }}
