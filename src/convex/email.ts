@@ -1,7 +1,7 @@
 "use node";
 import { internalAction } from "./_generated/server";
 import { v } from "convex/values";
-import { createVlyIntegrations } from "@vly-ai/integrations";
+import nodemailer from "nodemailer";
 
 export const sendContactEmail = internalAction({
   args: {
@@ -11,13 +11,19 @@ export const sendContactEmail = internalAction({
   },
   handler: async (ctx, args) => {
     try {
-      const vly = createVlyIntegrations({
-        deploymentToken: process.env.VLY_INTEGRATION_KEY || "",
-        debug: true,
+      // Create Gmail SMTP transporter
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'hejkatuhejka3@gmail.com',
+          pass: 'kbjz jhpg xwpu yhpb', // App password
+        },
       });
 
-      const result = await vly.email.send({
-        to: "hejkatuhejka3@gmail.com",
+      // Send email
+      const info = await transporter.sendMail({
+        from: '"Engleo Contact Form" <hejkatuhejka3@gmail.com>',
+        to: 'hejkatuhejka3@gmail.com',
         subject: `Nowa wiadomość ze strony od: ${args.name}`,
         text: `Imię i nazwisko: ${args.name}\nEmail: ${args.email}\n\nWiadomość:\n${args.content}`,
         html: `
@@ -30,15 +36,14 @@ export const sendContactEmail = internalAction({
             <p style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; white-space: pre-wrap;">${args.content}</p>
           </div>
         `,
+        replyTo: args.email, // Allow direct reply to the sender
       });
 
-      console.log("Email send result:", result);
-
-      if (!result.success) {
-        console.error("Email sending failed:", result.error);
-      }
+      console.log("Email sent successfully:", info.messageId);
+      return { success: true, messageId: info.messageId };
     } catch (error) {
       console.error("Failed to send email:", error);
+      throw error;
     }
   },
 });
