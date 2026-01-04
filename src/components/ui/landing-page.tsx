@@ -9,6 +9,7 @@ import Testimonials from "@/components/landing/Testimonials";
 import Offer from "@/components/landing/Offer";
 import Contact from "@/components/landing/Contact";
 import Footer from "@/components/landing/Footer";
+import LevelTest from "@/components/landing/LevelTest";
 
 // Lazy load heavy UI components only
 const PortfolioGallery = lazy(() => import("@/components/ui/portfolio-gallery").then(module => ({ default: module.PortfolioGallery })));
@@ -22,6 +23,7 @@ export function DesignAgency() {
       
       <About />
       <Whiteboard />
+      <LevelTest />
       <Testimonials />
       <Offer />
       
