@@ -11,19 +11,28 @@ export const sendContactEmail = internalAction({
   },
   handler: async (ctx, args) => {
     try {
+      // Get credentials from environment variables
+      const gmailUser = process.env.GMAIL_USER;
+      const gmailAppPassword = process.env.GMAIL_APP_PASSWORD;
+      const recipientEmail = process.env.CONTACT_EMAIL || gmailUser;
+
+      if (!gmailUser || !gmailAppPassword) {
+        throw new Error("Gmail credentials not configured. Please set GMAIL_USER and GMAIL_APP_PASSWORD environment variables.");
+      }
+
       // Create Gmail SMTP transporter
       const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'hejkatuhejka3@gmail.com',
-          pass: 'kbjz jhpg xwpu yhpb', // App password
+          user: gmailUser,
+          pass: gmailAppPassword,
         },
       });
 
       // Send email
       const info = await transporter.sendMail({
-        from: '"Engleo Contact Form" <hejkatuhejka3@gmail.com>',
-        to: 'hejkatuhejka3@gmail.com',
+        from: `"Engleo Contact Form" <${gmailUser}>`,
+        to: recipientEmail,
         subject: `Nowa wiadomość ze strony od: ${args.name}`,
         text: `Imię i nazwisko: ${args.name}\nEmail: ${args.email}\n\nWiadomość:\n${args.content}`,
         html: `

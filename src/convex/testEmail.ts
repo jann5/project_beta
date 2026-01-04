@@ -8,19 +8,30 @@ export const testEmailSending = internalAction({
     try {
       console.log("Testing Gmail SMTP email sending...");
 
+      // Get credentials from environment variables
+      const gmailUser = process.env.GMAIL_USER;
+      const gmailAppPassword = process.env.GMAIL_APP_PASSWORD;
+      const recipientEmail = process.env.CONTACT_EMAIL || gmailUser;
+
+      if (!gmailUser || !gmailAppPassword) {
+        throw new Error("Gmail credentials not configured. Please set GMAIL_USER and GMAIL_APP_PASSWORD environment variables.");
+      }
+
+      console.log(`Sending test email from ${gmailUser} to ${recipientEmail}`);
+
       // Create Gmail SMTP transporter
       const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'hejkatuhejka3@gmail.com',
-          pass: 'kbjz jhpg xwpu yhpb',
+          user: gmailUser,
+          pass: gmailAppPassword,
         },
       });
 
       // Send test email
       const info = await transporter.sendMail({
-        from: '"Engleo Test" <hejkatuhejka3@gmail.com>',
-        to: 'hejkatuhejka3@gmail.com',
+        from: `"Engleo Test" <${gmailUser}>`,
+        to: recipientEmail,
         subject: 'Test Email from Engleo - Gmail SMTP Verification',
         text: 'This is a test email to verify the Gmail SMTP system is working correctly.',
         html: `
