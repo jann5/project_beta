@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { LiquidButton, MetalButton } from "@/components/ui/liquid-glass-button";
+import Switch from "@/components/ui/sky-toggle";
 import { 
   Sparkles, 
   Palette, 
@@ -163,7 +164,7 @@ export function DesignAgency() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-12 items-center justify-center">
+          <div className="grid md:grid-cols-3 gap-8 items-center justify-center">
             <div className="flex flex-col items-center gap-6 p-8 rounded-xl bg-card border">
               <h3 className="text-xl font-semibold">Liquid Glass Effect</h3>
               <div className="relative h-[100px] w-full flex items-center justify-center">
@@ -179,6 +180,13 @@ export function DesignAgency() {
                 <MetalButton variant="gold">Gold</MetalButton>
                 <MetalButton variant="bronze">Bronze</MetalButton>
                 <MetalButton variant="primary">Primary</MetalButton>
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center gap-6 p-8 rounded-xl bg-card border">
+              <h3 className="text-xl font-semibold">Sky Toggle</h3>
+              <div className="flex items-center justify-center h-[100px]">
+                <Switch />
               </div>
             </div>
           </div>
