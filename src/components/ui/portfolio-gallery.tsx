@@ -82,13 +82,13 @@ export function PortfolioGallery({
         {/* Header Section */}
         <div className="relative z-10 text-center pt-16 pb-8 px-8">
           <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-8 text-balance">{title}</h2>
-          {/* <Link
+          <Link
             to={archiveButton.href}
             className="inline-flex items-center gap-3 bg-foreground text-background px-6 py-3 rounded-full font-medium hover:bg-foreground/90 transition-colors group mb-20"
           >
             <span>{archiveButton.text}</span>
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </Link> */}
+          </Link>
         </div>
 
         {/* Desktop 3D overlapping layout - hidden on mobile */}

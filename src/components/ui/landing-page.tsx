@@ -154,6 +154,10 @@ export function DesignAgency() {
       {/* Gallery Section */}
       <PortfolioGallery 
         title="Galeria z zajęć"
+        archiveButton={{
+          text: "Zobacz całą galerię",
+          href: "/gallery"
+        }}
         images={[
           {
             src: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&h=600&fit=crop&q=80",
@@ -174,6 +178,18 @@ export function DesignAgency() {
           {
             src: "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=800&h=600&fit=crop&q=80",
             alt: "Certyfikaty",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&h=600&fit=crop&q=80",
+            alt: "Nauczanie indywidualne",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=800&h=600&fit=crop&q=80",
+            alt: "Biblioteczka",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=600&fit=crop&q=80",
+            alt: "E-learning",
           },
         ]}
       />
