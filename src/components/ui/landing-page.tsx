@@ -15,7 +15,10 @@ import {
   Languages,
   Star,
   CheckCircle2,
-  ArrowRight
+  ArrowRight,
+  Monitor,
+  Users,
+  Sparkles
 } from "lucide-react";
 import { PortfolioGallery } from "@/components/ui/portfolio-gallery";
 
@@ -147,6 +150,113 @@ export function DesignAgency() {
                 <Button size="lg">Poznaj moją metodę</Button>
               </div>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Offer / Pricing Section */}
+      <section id="offer" className="py-20 relative overflow-hidden">
+        <div className="absolute inset-0 bg-primary/5 -skew-y-3 transform origin-top-left scale-110 z-0" />
+        <div className="container mx-auto px-4 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+              <Sparkles className="w-4 h-4" />
+              <span>Pierwsza lekcja gratis!</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Oferta i Cennik</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Wybierz formę nauki, która najbardziej Ci odpowiada. 
+              Zapraszam na darmową lekcję próbną, abyśmy mogli się poznać i ustalić plan działania.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* Online Option */}
+            <motion.div
+              whileHover={{ y: -5 }}
+              className="bg-card border rounded-3xl p-8 shadow-lg relative overflow-hidden group"
+            >
+              <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                <Monitor className="w-32 h-32" />
+              </div>
+              <div className="relative z-10">
+                <div className="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-500 flex items-center justify-center mb-6">
+                  <Monitor className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-bold mb-2">Zajęcia Online</h3>
+                <p className="text-muted-foreground mb-6">
+                  Wygodna nauka z dowolnego miejsca na świecie. Oszczędność czasu i pełna elastyczność.
+                </p>
+                <div className="flex items-baseline gap-1 mb-6">
+                  <span className="text-4xl font-bold">-- PLN</span>
+                  <span className="text-muted-foreground">/ 60 min</span>
+                </div>
+                <ul className="space-y-3 mb-8">
+                  <li className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-primary" />
+                    <span>Platforma Google Meet / Zoom</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-primary" />
+                    <span>Materiały cyfrowe w cenie</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-primary" />
+                    <span>Elastyczne godziny</span>
+                  </li>
+                </ul>
+                <Button className="w-full" variant="outline">Wybieram Online</Button>
+              </div>
+            </motion.div>
+
+            {/* In-Person Option */}
+            <motion.div
+              whileHover={{ y: -5 }}
+              className="bg-card border rounded-3xl p-8 shadow-lg relative overflow-hidden group border-primary/20"
+            >
+              <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                <Users className="w-32 h-32" />
+              </div>
+              <div className="relative z-10">
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-6">
+                  <Users className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-bold mb-2">Zajęcia Stacjonarne</h3>
+                <p className="text-muted-foreground mb-6">
+                  Tradycyjna forma nauki w mojej sali wykładowej. Bezpośredni kontakt i profesjonalne wyposażenie.
+                </p>
+                <div className="flex items-baseline gap-1 mb-6">
+                  <span className="text-4xl font-bold">-- PLN</span>
+                  <span className="text-muted-foreground">/ 60 min</span>
+                </div>
+                <ul className="space-y-3 mb-8">
+                  <li className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-primary" />
+                    <span>Sala w Dusznikach</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-primary" />
+                    <span>Dostęp do biblioteczki</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-primary" />
+                    <span>Kawa i herbata</span>
+                  </li>
+                </ul>
+                <Button className="w-full">Wybieram Stacjonarnie</Button>
+              </div>
+            </motion.div>
+          </div>
+
+          <div className="mt-12 text-center">
+            <p className="text-muted-foreground">
+              * Pierwsze zajęcia próbne (30 min) są całkowicie <span className="text-primary font-bold">darmowe</span>!
+            </p>
           </div>
         </div>
       </section>

@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, X } from "lucide-react";
+import { ArrowLeft, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const galleryImages = [
   {
@@ -56,7 +56,33 @@ const galleryImages = [
 ];
 
 export default function GalleryPage() {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+
+  const handleNext = useCallback((e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setSelectedIndex((prev) => 
+      prev === null ? null : (prev + 1) % galleryImages.length
+    );
+  }, []);
+
+  const handlePrev = useCallback((e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setSelectedIndex((prev) => 
+      prev === null ? null : (prev - 1 + galleryImages.length) % galleryImages.length
+    );
+  }, []);
+
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (selectedIndex === null) return;
+    if (e.key === "ArrowRight") handleNext();
+    if (e.key === "ArrowLeft") handlePrev();
+    if (e.key === "Escape") setSelectedIndex(null);
+  }, [selectedIndex, handleNext, handlePrev]);
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handleKeyDown]);
 
   return (
     <div className="min-h-screen bg-background p-4 md:p-8">
@@ -79,7 +105,7 @@ export default function GalleryPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: index * 0.05 }}
               className="group relative aspect-square overflow-hidden rounded-xl bg-muted cursor-pointer"
-              onClick={() => setSelectedImage(image.src)}
+              onClick={() => setSelectedIndex(index)}
             >
               <img
                 src={image.src}
@@ -96,30 +122,58 @@ export default function GalleryPage() {
       </div>
 
       <AnimatePresence>
-        {selectedImage && (
+        {selectedIndex !== null && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4"
-            onClick={() => setSelectedImage(null)}
+            onClick={() => setSelectedIndex(null)}
           >
             <button
-              className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors p-2"
-              onClick={() => setSelectedImage(null)}
+              className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors p-2 z-50"
+              onClick={() => setSelectedIndex(null)}
             >
               <X className="w-8 h-8" />
               <span className="sr-only">Zamknij</span>
             </button>
+
+            <button
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-2 z-50 hover:bg-white/10 rounded-full"
+              onClick={handlePrev}
+            >
+              <ChevronLeft className="w-10 h-10" />
+              <span className="sr-only">Poprzednie</span>
+            </button>
+
+            <button
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors p-2 z-50 hover:bg-white/10 rounded-full"
+              onClick={handleNext}
+            >
+              <ChevronRight className="w-10 h-10" />
+              <span className="sr-only">Następne</span>
+            </button>
+
             <motion.img
+              key={selectedIndex}
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              src={selectedImage}
-              alt="Full screen view"
-              className="max-h-[90vh] max-w-[90vw] object-contain rounded-lg shadow-2xl"
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              src={galleryImages[selectedIndex].src}
+              alt={galleryImages[selectedIndex].alt}
+              className="max-h-[90vh] max-w-[80vw] object-contain rounded-lg shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             />
+            
+            <div className="absolute bottom-8 left-0 right-0 text-center pointer-events-none">
+              <p className="text-white/90 font-medium text-lg drop-shadow-md">
+                {galleryImages[selectedIndex].alt}
+              </p>
+              <p className="text-white/60 text-sm mt-1">
+                {selectedIndex + 1} / {galleryImages.length}
+              </p>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
