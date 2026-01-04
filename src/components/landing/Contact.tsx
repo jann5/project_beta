@@ -24,6 +24,13 @@ export default function Contact() {
       return;
     }
 
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(contactForm.email)) {
+      toast.error("Proszę podać prawidłowy adres email.");
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       await sendMessage({
