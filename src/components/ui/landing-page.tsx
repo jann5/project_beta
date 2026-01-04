@@ -6,7 +6,7 @@ import Switch from "@/components/ui/sky-toggle";
 import { LocationMap } from "@/components/ui/expand-map";
 import { AntiGravityCanvas } from "@/components/ui/particle-effect-for-hero";
 import { useTheme } from "next-themes";
-import { useQuery } from "convex/react";
+import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { 
   MapPin, 
@@ -26,10 +26,43 @@ import {
 } from "lucide-react";
 import { PortfolioGallery } from "@/components/ui/portfolio-gallery";
 import { ShareDialog } from "@/components/ui/share-dialog";
+import { useState } from "react";
+import { toast } from "sonner";
 
 export function DesignAgency() {
   const { theme, setTheme } = useTheme();
   const testimonials = useQuery(api.testimonials.get);
+  const sendMessage = useMutation(api.messages.send);
+
+  const [contactForm, setContactForm] = useState({
+    name: "",
+    email: "",
+    message: ""
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleContactSubmit = async () => {
+    if (!contactForm.name || !contactForm.email || !contactForm.message) {
+      toast.error("Proszę wypełnić wszystkie pola.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      await sendMessage({
+        name: contactForm.name,
+        email: contactForm.email,
+        content: contactForm.message,
+      });
+      toast.success("Wiadomość została wysłana! Skontaktuję się wkrótce.");
+      setContactForm({ name: "", email: "", message: "" });
+    } catch (error) {
+      toast.error("Wystąpił błąd podczas wysyłania wiadomości.");
+      console.error(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -513,19 +546,38 @@ export function DesignAgency() {
               <div className="space-y-6">
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Imię i nazwisko</label>
-                  <Input placeholder="Jan Kowalski" />
+                  <Input 
+                    placeholder="Jan Kowalski" 
+                    value={contactForm.name}
+                    onChange={(e) => setContactForm({...contactForm, name: e.target.value})}
+                  />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Email</label>
-                  <Input placeholder="jan@example.com" type="email" />
+                  <Input 
+                    placeholder="jan@example.com" 
+                    type="email" 
+                    value={contactForm.email}
+                    onChange={(e) => setContactForm({...contactForm, email: e.target.value})}
+                  />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Wiadomość</label>
-                  <Textarea placeholder="Dzień dobry, chciałbym zapytać o..." className="min-h-[120px]" />
+                  <Textarea 
+                    placeholder="Dzień dobry, chciałbym zapytać o..." 
+                    className="min-h-[120px]" 
+                    value={contactForm.message}
+                    onChange={(e) => setContactForm({...contactForm, message: e.target.value})}
+                  />
                 </div>
-                <Button className="w-full rounded-full" size="lg">
-                  Wyślij wiadomość
-                  <ArrowRight className="ml-2 w-4 h-4" />
+                <Button 
+                  className="w-full rounded-full" 
+                  size="lg"
+                  onClick={handleContactSubmit}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Wysyłanie..." : "Wyślij wiadomość"}
+                  {!isSubmitting && <ArrowRight className="ml-2 w-4 h-4" />}
                 </Button>
               </div>
             </div>

@@ -16,4 +16,11 @@ export default defineSchema({
     rating: v.number(), // 1-5
     approved: v.boolean(), // for moderation
   }).index("by_approved", ["approved"]),
+
+  messages: defineTable({
+    name: v.string(),
+    email: v.string(),
+    content: v.string(),
+    status: v.string(), // "new", "read", "replied"
+  }).index("by_status", ["status"]),
 });
