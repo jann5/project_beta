@@ -14,6 +14,7 @@ import "./types/global.d.ts";
 const Landing = lazy(() => import("./pages/Landing.tsx"));
 const AuthPage = lazy(() => import("./pages/Auth.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
+const MapDemo = lazy(() => import("./components/ui/expand-map-demo.tsx"));
 
 // Simple loading fallback for route transitions
 function RouteLoading() {
@@ -64,6 +65,7 @@ createRoot(document.getElementById("root")!).render(
               <Routes>
                 <Route path="/" element={<Landing />} />
                 <Route path="/auth" element={<AuthPage redirectAfterAuth="/" />} /> {/* TODO: change redirect after auth to correct page */}
+                <Route path="/map-demo" element={<MapDemo />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </Suspense>
