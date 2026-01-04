@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { LiquidButton, MetalButton } from "@/components/ui/liquid-glass-button";
 import { 
   Sparkles, 
   Palette, 
@@ -55,10 +56,9 @@ export function DesignAgency() {
               transition={{ delay: 0.3 }}
               className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4"
             >
-              <Button size="lg" className="group">
+              <LiquidButton size="xl">
                 Start Your Project
-                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
+              </LiquidButton>
               <Button size="lg" variant="outline">
                 View Our Work
               </Button>
@@ -144,6 +144,43 @@ export function DesignAgency() {
                 <div className="text-muted-foreground">{stat.label}</div>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* UI Showcase Section */}
+      <section className="px-4 py-20 bg-muted/30">
+        <div className="container mx-auto max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center space-y-4 mb-16"
+          >
+            <h2 className="text-3xl md:text-5xl font-bold">Experimental UI Elements</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Pushing the boundaries of interaction design with our custom components
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-12 items-center justify-center">
+            <div className="flex flex-col items-center gap-6 p-8 rounded-xl bg-card border">
+              <h3 className="text-xl font-semibold">Liquid Glass Effect</h3>
+              <div className="relative h-[100px] w-full flex items-center justify-center">
+                <LiquidButton>
+                  Liquid Interaction
+                </LiquidButton>
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center gap-6 p-8 rounded-xl bg-card border">
+              <h3 className="text-xl font-semibold">Metal Finish</h3>
+              <div className="flex flex-wrap gap-4 justify-center">
+                <MetalButton variant="gold">Gold</MetalButton>
+                <MetalButton variant="bronze">Bronze</MetalButton>
+                <MetalButton variant="primary">Primary</MetalButton>
+              </div>
+            </div>
           </div>
         </div>
       </section>
