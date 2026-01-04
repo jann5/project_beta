@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { LiquidButton, MetalButton } from "@/components/ui/liquid-glass-button";
 import Switch from "@/components/ui/sky-toggle";
 import { useTheme } from "next-themes";
 import { 
@@ -10,7 +9,6 @@ import {
   Phone, 
   Mail, 
   Globe, 
-  BookOpen, 
   GraduationCap, 
   Languages,
   Star,
@@ -39,7 +37,7 @@ export function DesignAgency() {
               <a href="#location" className="hover:text-primary transition-colors">Lokalizacja</a>
               <a href="#contact" className="hover:text-primary transition-colors">Kontakt</a>
             </div>
-            <div className="scale-75 origin-right">
+            <div className="origin-right">
               <Switch 
                 checked={theme === 'dark'} 
                 onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')} 
@@ -77,10 +75,10 @@ export function DesignAgency() {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <LiquidButton size="xl">
+                <Button size="lg" className="rounded-full px-8 text-lg h-12">
                   Zapisz się na zajęcia
-                </LiquidButton>
-                <Button size="lg" variant="outline" className="rounded-full px-8">
+                </Button>
+                <Button size="lg" variant="outline" className="rounded-full px-8 text-lg h-12">
                   Dowiedz się więcej
                 </Button>
               </div>
@@ -139,7 +137,7 @@ export function DesignAgency() {
                 ))}
               </ul>
               <div className="pt-4">
-                <MetalButton variant="gold">Poznaj moją metodę</MetalButton>
+                <Button size="lg">Poznaj moją metodę</Button>
               </div>
             </motion.div>
           </div>
@@ -175,9 +173,9 @@ export function DesignAgency() {
                 ul. Jesionowa 15<br />
                 64-550 Duszniki
               </p>
-              <MetalButton variant="primary" className="w-full mt-auto">
+              <Button className="w-full mt-auto">
                 Nawiguj
-              </MetalButton>
+              </Button>
             </motion.div>
 
             <motion.div
@@ -194,9 +192,9 @@ export function DesignAgency() {
                   www.engleo.pl
                 </a>
               </p>
-              <MetalButton variant="bronze" className="w-full mt-auto">
+              <Button variant="outline" className="w-full mt-auto">
                 Odwiedź stronę
-              </MetalButton>
+              </Button>
             </motion.div>
 
             <motion.div
@@ -211,9 +209,9 @@ export function DesignAgency() {
                 Skontaktuj się ze mną<br />
                 telefonicznie lub mailowo
               </p>
-              <MetalButton variant="default" className="w-full mt-auto">
+              <Button className="w-full mt-auto">
                 Zadzwoń teraz
-              </MetalButton>
+              </Button>
             </motion.div>
           </div>
         </div>
