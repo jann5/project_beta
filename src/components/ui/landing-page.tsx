@@ -412,60 +412,55 @@ export function DesignAgency() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="max-w-4xl mx-auto">
             <LocationMap />
-
-            <motion.div
-              whileHover={{ y: -5 }}
-              className="p-8 rounded-2xl bg-card border shadow-sm flex flex-col items-center text-center gap-4"
-            >
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-2">
-                <Phone className="w-8 h-8 text-primary" />
-              </div>
-              <h3 className="font-semibold text-xl">Kontakt</h3>
-              <p className="text-muted-foreground">
-                Skontaktuj się ze mną<br />
-                telefonicznie lub mailowo
-              </p>
-              <Button className="w-full mt-auto" onClick={() => window.location.href = 'tel:+48123456789'}>
-                Zadzwoń teraz
-              </Button>
-            </motion.div>
           </div>
         </div>
       </section>
 
       {/* Contact Form Section */}
       <section id="contact" className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <div className="rounded-3xl bg-card border shadow-xl overflow-hidden">
-            <div className="grid md:grid-cols-2">
-              <div className="p-12 bg-primary text-primary-foreground flex flex-col justify-between">
-                <div>
-                  <h3 className="text-3xl font-bold mb-2">Napisz do mnie</h3>
-                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-lg font-medium mb-6 opacity-90">
-                    <span>lub zadzwoń:</span>
-                    <a href="tel:+48123456789" className="hover:underline flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full transition-colors hover:bg-white/20">
-                      <Phone className="w-4 h-4" />
-                      +48 123 456 789
-                    </a>
-                  </div>
-                  <p className="opacity-90 mb-8">
-                    Masz pytania? Chcesz umówić się na lekcję próbną? Wypełnij formularz, a odezwę się najszybciej jak to możliwe.
-                  </p>
-                </div>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <Mail className="w-5 h-5" />
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Contact Info Card */}
+            <motion.div
+              whileHover={{ y: -5 }}
+              className="p-8 rounded-3xl bg-card border shadow-lg flex flex-col items-center text-center gap-6 h-full justify-center"
+            >
+              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-2">
+                <Phone className="w-10 h-10 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-bold text-2xl mb-2">Kontakt</h3>
+                <p className="text-muted-foreground text-lg mb-6">
+                  Skontaktuj się ze mną<br />
+                  telefonicznie lub mailowo
+                </p>
+                <div className="space-y-4 mb-8 text-left inline-block">
+                  <div className="flex items-center gap-3 text-muted-foreground">
+                    <Mail className="w-5 h-5 text-primary" />
                     <span>kontakt@engleo.pl</span>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <Phone className="w-5 h-5" />
+                  <div className="flex items-center gap-3 text-muted-foreground">
+                    <Phone className="w-5 h-5 text-primary" />
                     <span>+48 123 456 789</span>
                   </div>
                 </div>
               </div>
-              <div className="p-12 space-y-6">
+              <Button size="lg" className="w-full max-w-xs rounded-full" onClick={() => window.location.href = 'tel:+48123456789'}>
+                Zadzwoń teraz
+              </Button>
+            </motion.div>
+
+            {/* Contact Form Card */}
+            <div className="rounded-3xl bg-card border shadow-lg overflow-hidden p-8 md:p-10">
+              <div className="mb-8">
+                <h3 className="text-3xl font-bold mb-2">Napisz do mnie</h3>
+                <p className="text-muted-foreground">
+                  Masz pytania? Chcesz umówić się na lekcję próbną? Wypełnij formularz.
+                </p>
+              </div>
+              <div className="space-y-6">
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Imię i nazwisko</label>
                   <Input placeholder="Jan Kowalski" />
@@ -478,7 +473,7 @@ export function DesignAgency() {
                   <label className="text-sm font-medium">Wiadomość</label>
                   <Textarea placeholder="Dzień dobry, chciałbym zapytać o..." className="min-h-[120px]" />
                 </div>
-                <Button className="w-full" size="lg">
+                <Button className="w-full rounded-full" size="lg">
                   Wyślij wiadomość
                   <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
