@@ -12,7 +12,7 @@ export const sendContactEmail = internalAction({
   handler: async (ctx, args) => {
     try {
       await vly.email.send({
-        to: "szkoła@engleo.pl",
+        to: "hejkatuhejka3@gmail.com",
         subject: `Nowa wiadomość ze strony od: ${args.name}`,
         text: `Imię i nazwisko: ${args.name}\nEmail: ${args.email}\n\nWiadomość:\n${args.content}`,
         html: `
