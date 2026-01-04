@@ -5,6 +5,9 @@ import nodemailer from "nodemailer";
 export const testEmailSending = internalAction({
   args: {},
   handler: async (ctx) => {
+    console.log("=== EMAIL TEST STARTED ===");
+    console.log(`Test initiated at: ${new Date().toISOString()}`);
+    
     try {
       console.log("Testing Gmail SMTP email sending...");
 
@@ -13,13 +16,22 @@ export const testEmailSending = internalAction({
       const gmailAppPassword = process.env.GMAIL_APP_PASSWORD;
       const recipientEmail = process.env.CONTACT_EMAIL || gmailUser;
 
+      console.log("\n--- Environment Check ---");
+      console.log(`GMAIL_USER: ${gmailUser ? `✓ ${gmailUser}` : '✗ NOT SET'}`);
+      console.log(`GMAIL_APP_PASSWORD: ${gmailAppPassword ? '✓ SET (hidden)' : '✗ NOT SET'}`);
+      console.log(`CONTACT_EMAIL: ${recipientEmail}`);
+
       if (!gmailUser || !gmailAppPassword) {
-        throw new Error("Gmail credentials not configured. Please set GMAIL_USER and GMAIL_APP_PASSWORD environment variables.");
+        const errorMsg = "Gmail credentials not configured. Please set GMAIL_USER and GMAIL_APP_PASSWORD environment variables.";
+        console.error(`\n❌ ${errorMsg}`);
+        throw new Error(errorMsg);
       }
 
+      console.log(`\n--- Email Configuration ---`);
       console.log(`Sending test email from ${gmailUser} to ${recipientEmail}`);
 
       // Create Gmail SMTP transporter
+      console.log("\nCreating transporter...");
       const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -27,6 +39,9 @@ export const testEmailSending = internalAction({
           pass: gmailAppPassword,
         },
       });
+
+      console.log("Transporter created ✓");
+      console.log("\nSending email...");
 
       // Send test email
       const info = await transporter.sendMail({
@@ -43,10 +58,20 @@ export const testEmailSending = internalAction({
         `,
       });
 
-      console.log("Email sent successfully:", info.messageId);
+      console.log("\n✅ EMAIL SENT SUCCESSFULLY!");
+      console.log(`Message ID: ${info.messageId}`);
+      console.log(`Response: ${info.response}`);
+      console.log(`Accepted: ${info.accepted?.join(', ')}`);
+      console.log(`Rejected: ${info.rejected?.length ? info.rejected.join(', ') : 'None'}`);
+      console.log("\n=== EMAIL TEST COMPLETED SUCCESSFULLY ===");
+      
       return { success: true, messageId: info.messageId };
     } catch (error) {
-      console.error("Email test failed:", error);
+      console.error("\n❌ EMAIL TEST FAILED!");
+      console.error("Error type:", error instanceof Error ? error.constructor.name : typeof error);
+      console.error("Error message:", error instanceof Error ? error.message : String(error));
+      console.error("Full error:", error);
+      console.error("\n=== EMAIL TEST FAILED ===");
       throw error;
     }
   },

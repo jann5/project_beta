@@ -10,16 +10,28 @@ export const sendContactEmail = internalAction({
     content: v.string(),
   },
   handler: async (ctx, args) => {
+    console.log("=== Email Sending Started ===");
+    console.log(`Timestamp: ${new Date().toISOString()}`);
+    console.log(`From: ${args.name} <${args.email}>`);
+    console.log(`Message length: ${args.content.length} characters`);
+    
     try {
       // Get credentials from environment variables
       const gmailUser = process.env.GMAIL_USER;
       const gmailAppPassword = process.env.GMAIL_APP_PASSWORD;
       const recipientEmail = process.env.CONTACT_EMAIL || gmailUser;
 
+      console.log(`Gmail User: ${gmailUser ? '✓ Set' : '✗ Missing'}`);
+      console.log(`Gmail App Password: ${gmailAppPassword ? '✓ Set' : '✗ Missing'}`);
+      console.log(`Recipient Email: ${recipientEmail}`);
+
       if (!gmailUser || !gmailAppPassword) {
-        throw new Error("Gmail credentials not configured. Please set GMAIL_USER and GMAIL_APP_PASSWORD environment variables.");
+        const errorMsg = "Gmail credentials not configured. Please set GMAIL_USER and GMAIL_APP_PASSWORD environment variables.";
+        console.error(`❌ ${errorMsg}`);
+        throw new Error(errorMsg);
       }
 
+      console.log("Creating Gmail SMTP transporter...");
       // Create Gmail SMTP transporter
       const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -28,6 +40,9 @@ export const sendContactEmail = internalAction({
           pass: gmailAppPassword,
         },
       });
+
+      console.log("Transporter created successfully");
+      console.log("Preparing email content...");
 
       // Send email
       const info = await transporter.sendMail({
@@ -48,10 +63,18 @@ export const sendContactEmail = internalAction({
         replyTo: args.email, // Allow direct reply to the sender
       });
 
-      console.log("Email sent successfully:", info.messageId);
+      console.log("✅ Email sent successfully!");
+      console.log(`Message ID: ${info.messageId}`);
+      console.log(`Response: ${info.response}`);
+      console.log("=== Email Sending Completed ===");
+      
       return { success: true, messageId: info.messageId };
     } catch (error) {
-      console.error("Failed to send email:", error);
+      console.error("❌ Email sending failed!");
+      console.error("Error details:", error);
+      console.error("Error message:", error instanceof Error ? error.message : String(error));
+      console.error("Error stack:", error instanceof Error ? error.stack : 'No stack trace');
+      console.error("=== Email Sending Failed ===");
       throw error;
     }
   },
