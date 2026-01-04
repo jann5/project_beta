@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Switch from "@/components/ui/sky-toggle";
+import { LocationMap } from "@/components/ui/expand-map";
 import { useTheme } from "next-themes";
 import { 
   MapPin, 
@@ -160,23 +161,7 @@ export function DesignAgency() {
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <motion.div
-              whileHover={{ y: -5 }}
-              className="p-8 rounded-2xl bg-card border shadow-sm flex flex-col items-center text-center gap-4"
-            >
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-2">
-                <MapPin className="w-8 h-8 text-primary" />
-              </div>
-              <h3 className="font-semibold text-xl">Adres</h3>
-              <p className="text-muted-foreground">
-                Sala bankietowa "Halszka"<br />
-                ul. Jesionowa 15<br />
-                64-550 Duszniki
-              </p>
-              <Button className="w-full mt-auto">
-                Nawiguj
-              </Button>
-            </motion.div>
+            <LocationMap />
 
             <motion.div
               whileHover={{ y: -5 }}
