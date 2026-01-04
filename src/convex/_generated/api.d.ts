@@ -13,6 +13,7 @@ import type * as auth_emailOtp from "../auth/emailOtp.js";
 import type * as email from "../email.js";
 import type * as http from "../http.js";
 import type * as messages from "../messages.js";
+import type * as testEmail from "../testEmail.js";
 import type * as testimonials from "../testimonials.js";
 import type * as users from "../users.js";
 
@@ -28,6 +29,7 @@ declare const fullApi: ApiFromModules<{
   email: typeof email;
   http: typeof http;
   messages: typeof messages;
+  testEmail: typeof testEmail;
   testimonials: typeof testimonials;
   users: typeof users;
 }>;
