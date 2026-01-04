@@ -144,9 +144,17 @@ export function DesignAgency() {
               className="space-y-6"
             >
               <h2 className="text-3xl md:text-4xl font-bold">O mnie</h2>
-              <p className="text-lg text-muted-foreground">
-                Nazywam się Adrianna Nawrot i jestem założycielką Engleo. Moim celem jest sprawienie, by nauka języka angielskiego była nie tylko efektywna, ale również przyjemna.
-              </p>
+              <div className="text-lg text-muted-foreground space-y-4">
+                <p>
+                  Jestem absolwentką studiów dziennych Filologii Angielskiej z przygotowaniem pedagogicznym Uniwersytetu im. Adama Mickiewicza w Poznaniu oraz Uniwersytetu Ekonomicznego w Poznaniu (Stosunki Międzynarodowe). Ukończyłam również Szkołę Tłumaczy i Języków Obcych na UAM. Specjalizuję się w tłumaczeniach ustnych symultanicznych oraz konsekutywnych.
+                </p>
+                <p>
+                  Doświadczenie zdobywałam jako nauczyciel oraz egzaminator maturalny w liceum ogólnokształcącym (Zespół Szkół Sióstr Urszulanek SJK w Pniewach). Od kilkunastu lat uczę języka angielskiego jako lektor w szkole językowej.
+                </p>
+                <p>
+                  Prowadzę również szkolenia językowe dla kadry zarządzającej oraz kursy grupowe dla pracowników firm. Od wielu lat współpracuję z takimi firmami jak SKANSKA, NCC oraz WAVIN (analiza potrzeb szkoleniowych, szkolenia dla kadry kierowniczej, tłumaczenia specjalistyczne). Tłumaczę także książki dla wydawnictw literatury angielskiej.
+                </p>
+              </div>
               <ul className="space-y-4">
                 {[
                   "Indywidualne podejście do każdego ucznia",
