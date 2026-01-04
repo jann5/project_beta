@@ -18,7 +18,8 @@ import {
   ArrowRight,
   Monitor,
   Users,
-  Sparkles
+  Sparkles,
+  User
 } from "lucide-react";
 import { PortfolioGallery } from "@/components/ui/portfolio-gallery";
 
@@ -31,9 +32,11 @@ export function DesignAgency() {
       <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2 font-bold text-xl">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground">
-              E
-            </div>
+            <img 
+              src="https://harmless-tapir-303.convex.cloud/api/storage/f5d797b2-34f6-4897-ad1d-c045409fd9bb" 
+              alt="Engleo Logo" 
+              className="h-10 w-auto object-contain"
+            />
             <span>Engleo</span>
           </div>
           <div className="flex items-center gap-4">
@@ -67,15 +70,15 @@ export function DesignAgency() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
-                <GraduationCap className="w-4 h-4" />
-                <span>Profesjonalna Nauka Języka Angielskiego</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6 animate-pulse">
+                <Sparkles className="w-4 h-4" />
+                <span className="font-bold">PIERWSZA LEKCJA (60 MIN) GRATIS!</span>
               </div>
               
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
                 Engleo
                 <br />
-                <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent text-2xl md:text-4xl font-medium block mt-2">
                   Adrianna Nawrot
                 </span>
               </h1>
@@ -85,8 +88,8 @@ export function DesignAgency() {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <Button size="lg" className="rounded-full px-8 text-lg h-12">
-                  Zapisz się na zajęcia
+                <Button size="lg" className="rounded-full px-8 text-lg h-12 shadow-lg shadow-primary/20">
+                  Odbierz darmową lekcję
                 </Button>
                 <Button size="lg" variant="outline" className="rounded-full px-8 text-lg h-12">
                   Dowiedz się więcej
@@ -164,57 +167,60 @@ export function DesignAgency() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-              <Sparkles className="w-4 h-4" />
-              <span>Pierwsza lekcja gratis!</span>
+            <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground text-base font-bold mb-6 shadow-xl transform hover:scale-105 transition-transform cursor-default">
+              <Sparkles className="w-5 h-5" />
+              <span>Pierwsza lekcja (60 min) całkowicie ZA DARMO!</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Oferta i Cennik</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Wybierz formę nauki, która najbardziej Ci odpowiada. 
-              Zapraszam na darmową lekcję próbną, abyśmy mogli się poznać i ustalić plan działania.
+              Oferuję zajęcia indywidualne oraz grupowe, zarówno online jak i stacjonarnie.
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* Online Option */}
+            {/* Individual Option */}
             <motion.div
               whileHover={{ y: -5 }}
               className="bg-card border rounded-3xl p-8 shadow-lg relative overflow-hidden group"
             >
               <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                <Monitor className="w-32 h-32" />
+                <User className="w-32 h-32" />
               </div>
               <div className="relative z-10">
                 <div className="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-500 flex items-center justify-center mb-6">
-                  <Monitor className="w-6 h-6" />
+                  <User className="w-6 h-6" />
                 </div>
-                <h3 className="text-2xl font-bold mb-2">Zajęcia Online</h3>
+                <h3 className="text-2xl font-bold mb-2">Zajęcia Indywidualne</h3>
                 <p className="text-muted-foreground mb-6">
-                  Wygodna nauka z dowolnego miejsca na świecie. Oszczędność czasu i pełna elastyczność.
+                  Pełne skupienie na Twoich potrzebach. Idealne dla osób ceniących prywatność i własne tempo nauki.
                 </p>
                 <div className="flex items-baseline gap-1 mb-6">
                   <span className="text-4xl font-bold">-- PLN</span>
                   <span className="text-muted-foreground">/ 60 min</span>
                 </div>
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-center gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-primary" />
-                    <span>Platforma Google Meet / Zoom</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-primary" />
-                    <span>Materiały cyfrowe w cenie</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-primary" />
-                    <span>Elastyczne godziny</span>
-                  </li>
-                </ul>
-                <Button className="w-full" variant="outline">Wybieram Online</Button>
+                <div className="space-y-4 mb-8">
+                  <div className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">Dostępne formy:</div>
+                  <ul className="space-y-3">
+                    <li className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-primary" />
+                      <span>Online (Google Meet / Zoom)</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-primary" />
+                      <span>Stacjonarnie (Sala w Dusznikach)</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-primary" />
+                      <span>Materiały w cenie</span>
+                    </li>
+                  </ul>
+                </div>
+                <Button className="w-full" variant="outline">Wybieram Indywidualne</Button>
               </div>
             </motion.div>
 
-            {/* In-Person Option */}
+            {/* Group Option */}
             <motion.div
               whileHover={{ y: -5 }}
               className="bg-card border rounded-3xl p-8 shadow-lg relative overflow-hidden group border-primary/20"
@@ -226,36 +232,39 @@ export function DesignAgency() {
                 <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mb-6">
                   <Users className="w-6 h-6" />
                 </div>
-                <h3 className="text-2xl font-bold mb-2">Zajęcia Stacjonarne</h3>
+                <h3 className="text-2xl font-bold mb-2">Zajęcia Grupowe</h3>
                 <p className="text-muted-foreground mb-6">
-                  Tradycyjna forma nauki w mojej sali wykładowej. Bezpośredni kontakt i profesjonalne wyposażenie.
+                  Nauka w małych grupach. Motywacja, interakcja i niższa cena przy zachowaniu wysokiej jakości.
                 </p>
                 <div className="flex items-baseline gap-1 mb-6">
                   <span className="text-4xl font-bold">-- PLN</span>
                   <span className="text-muted-foreground">/ 60 min</span>
                 </div>
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-center gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-primary" />
-                    <span>Sala w Dusznikach</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-primary" />
-                    <span>Dostęp do biblioteczki</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-primary" />
-                    <span>Kawa i herbata</span>
-                  </li>
-                </ul>
-                <Button className="w-full">Wybieram Stacjonarnie</Button>
+                <div className="space-y-4 mb-8">
+                  <div className="font-semibold text-sm uppercase tracking-wider text-muted-foreground">Dostępne formy:</div>
+                  <ul className="space-y-3">
+                    <li className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-primary" />
+                      <span>Online (Google Meet / Zoom)</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-primary" />
+                      <span>Stacjonarnie (Sala w Dusznikach)</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-primary" />
+                      <span>Małe grupy (max 4-6 osób)</span>
+                    </li>
+                  </ul>
+                </div>
+                <Button className="w-full">Wybieram Grupowe</Button>
               </div>
             </motion.div>
           </div>
 
           <div className="mt-12 text-center">
             <p className="text-muted-foreground">
-              * Pierwsze zajęcia próbne (30 min) są całkowicie <span className="text-primary font-bold">darmowe</span>!
+              * Pierwsze zajęcia próbne (60 min) są całkowicie <span className="text-primary font-bold">darmowe</span>!
             </p>
           </div>
         </div>
