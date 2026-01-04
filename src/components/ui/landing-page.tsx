@@ -442,7 +442,14 @@ export function DesignAgency() {
             <div className="grid md:grid-cols-2">
               <div className="p-12 bg-primary text-primary-foreground flex flex-col justify-between">
                 <div>
-                  <h3 className="text-3xl font-bold mb-4">Napisz do mnie</h3>
+                  <h3 className="text-3xl font-bold mb-2">Napisz do mnie</h3>
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-lg font-medium mb-6 opacity-90">
+                    <span>lub zadzwoń:</span>
+                    <a href="tel:+48123456789" className="hover:underline flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full transition-colors hover:bg-white/20">
+                      <Phone className="w-4 h-4" />
+                      +48 123 456 789
+                    </a>
+                  </div>
                   <p className="opacity-90 mb-8">
                     Masz pytania? Chcesz umówić się na lekcję próbną? Wypełnij formularz, a odezwę się najszybciej jak to możliwe.
                   </p>
