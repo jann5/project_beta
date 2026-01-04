@@ -22,9 +22,17 @@ import {
   User
 } from "lucide-react";
 import { PortfolioGallery } from "@/components/ui/portfolio-gallery";
+import { ShareDialog } from "@/components/ui/share-dialog";
 
 export function DesignAgency() {
   const { theme, setTheme } = useTheme();
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background transition-colors duration-300">
@@ -41,17 +49,20 @@ export function DesignAgency() {
           </div>
           <div className="flex items-center gap-4">
             <div className="hidden md:flex items-center gap-6 text-sm font-medium">
-              <a href="#about" className="hover:text-primary transition-colors">O mnie</a>
-              <a href="#offer" className="hover:text-primary transition-colors">Oferta</a>
-              <a href="#gallery" className="hover:text-primary transition-colors">Galeria</a>
-              <a href="#location" className="hover:text-primary transition-colors">Lokalizacja</a>
-              <a href="#contact" className="hover:text-primary transition-colors">Kontakt</a>
+              <a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }} className="hover:text-primary transition-colors">O mnie</a>
+              <a href="#offer" onClick={(e) => { e.preventDefault(); scrollToSection('offer'); }} className="hover:text-primary transition-colors">Oferta</a>
+              <a href="#gallery" onClick={(e) => { e.preventDefault(); scrollToSection('gallery'); }} className="hover:text-primary transition-colors">Galeria</a>
+              <a href="#location" onClick={(e) => { e.preventDefault(); scrollToSection('location'); }} className="hover:text-primary transition-colors">Lokalizacja</a>
+              <a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }} className="hover:text-primary transition-colors">Kontakt</a>
             </div>
-            <div className="origin-right">
-              <Switch 
-                checked={theme === 'dark'} 
-                onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')} 
-              />
+            <div className="flex items-center gap-2">
+              <ShareDialog />
+              <div className="origin-right">
+                <Switch 
+                  checked={theme === 'dark'} 
+                  onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')} 
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -88,10 +99,10 @@ export function DesignAgency() {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <Button size="lg" className="rounded-full px-8 text-lg h-12 shadow-lg shadow-primary/20">
+                <Button size="lg" className="rounded-full px-8 text-lg h-12 shadow-lg shadow-primary/20" onClick={() => scrollToSection('contact')}>
                   Odbierz darmową lekcję
                 </Button>
-                <Button size="lg" variant="outline" className="rounded-full px-8 text-lg h-12">
+                <Button size="lg" variant="outline" className="rounded-full px-8 text-lg h-12" onClick={() => scrollToSection('about')}>
                   Dowiedz się więcej
                 </Button>
               </div>
@@ -150,7 +161,7 @@ export function DesignAgency() {
                 ))}
               </ul>
               <div className="pt-4">
-                <Button size="lg">Poznaj moją metodę</Button>
+                <Button size="lg" onClick={() => scrollToSection('offer')}>Poznaj moją metodę</Button>
               </div>
             </motion.div>
           </div>
@@ -216,7 +227,7 @@ export function DesignAgency() {
                     </li>
                   </ul>
                 </div>
-                <Button className="w-full" variant="outline">Wybieram Indywidualne</Button>
+                <Button className="w-full" variant="outline" onClick={() => scrollToSection('contact')}>Wybieram Indywidualne</Button>
               </div>
             </motion.div>
 
@@ -257,7 +268,7 @@ export function DesignAgency() {
                     </li>
                   </ul>
                 </div>
-                <Button className="w-full">Wybieram Grupowe</Button>
+                <Button className="w-full" onClick={() => scrollToSection('contact')}>Wybieram Grupowe</Button>
               </div>
             </motion.div>
           </div>
@@ -343,7 +354,7 @@ export function DesignAgency() {
                 Skontaktuj się ze mną<br />
                 telefonicznie lub mailowo
               </p>
-              <Button className="w-full mt-auto">
+              <Button className="w-full mt-auto" onClick={() => window.location.href = 'tel:+48123456789'}>
                 Zadzwoń teraz
               </Button>
             </motion.div>
