@@ -12,9 +12,10 @@ import "./types/global.d.ts";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { CookieConsent } from "@/components/CookieConsent";
+import Landing from "./pages/Landing.tsx";
 
 // Lazy load route components for better code splitting
-const Landing = lazy(() => import("./pages/Landing.tsx"));
+// Landing is now eager loaded for fastest initial paint
 const AuthPage = lazy(() => import("./pages/Auth.tsx"));
 const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 const GalleryPage = lazy(() => import("./pages/Gallery.tsx"));

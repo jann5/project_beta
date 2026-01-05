@@ -10,10 +10,8 @@ import Offer from "@/components/landing/Offer";
 import Contact from "@/components/landing/Contact";
 import Footer from "@/components/landing/Footer";
 import LevelTest from "@/components/landing/LevelTest";
-
-// Lazy load heavy UI components only
-const PortfolioGallery = lazy(() => import("@/components/ui/portfolio-gallery").then(module => ({ default: module.PortfolioGallery })));
-const LocationMap = lazy(() => import("@/components/ui/expand-map").then(module => ({ default: module.LocationMap })));
+import { PortfolioGallery } from "@/components/ui/portfolio-gallery";
+import { LocationMap } from "@/components/ui/expand-map";
 
 export function DesignAgency() {
   return (
@@ -28,70 +26,68 @@ export function DesignAgency() {
       <Offer />
       
       {/* Gallery Section */}
-      <Suspense fallback={<div className="py-20 flex justify-center"><LoadingSpinner fullScreen={false} /></div>}>
-        <PortfolioGallery 
-          title="Galeria z zajęć"
-          archiveButton={{
-            text: "Zobacz całą galerię",
-            href: "/gallery"
-          }}
-          images={[
-            {
-              src: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&h=600&fit=crop&q=80",
-              alt: "Zajęcia grupowe",
-            },
-            {
-              src: "https://images.unsplash.com/photo-1544717305-2782549b5136?w=800&h=600&fit=crop&q=80",
-              alt: "Materiały dydaktyczne",
-            },
-            {
-              src: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&h=600&fit=crop&q=80",
-              alt: "Sala lekcyjna",
-            },
-            {
-              src: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop&q=80",
-              alt: "Nauka online",
-            },
-            {
-              src: "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=800&h=600&fit=crop&q=80",
-              alt: "Certyfikaty",
-            },
-            {
-              src: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&h=600&fit=crop&q=80",
-              alt: "Nauczanie indywidualne",
-            },
-            {
-              src: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=800&h=600&fit=crop&q=80",
-              alt: "Biblioteczka",
-            },
-            {
-              src: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=600&fit=crop&q=80",
-              alt: "E-learning",
-            },
-          ]}
-        />
+      <PortfolioGallery 
+        title="Galeria z zajęć"
+        archiveButton={{
+          text: "Zobacz całą galerię",
+          href: "/gallery"
+        }}
+        images={[
+          {
+            src: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&h=600&fit=crop&q=80",
+            alt: "Zajęcia grupowe",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1544717305-2782549b5136?w=800&h=600&fit=crop&q=80",
+            alt: "Materiały dydaktyczne",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&h=600&fit=crop&q=80",
+            alt: "Sala lekcyjna",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop&q=80",
+            alt: "Nauka online",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?w=800&h=600&fit=crop&q=80",
+            alt: "Certyfikaty",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=800&h=600&fit=crop&q=80",
+            alt: "Nauczanie indywidualne",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=800&h=600&fit=crop&q=80",
+            alt: "Biblioteczka",
+          },
+          {
+            src: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=600&fit=crop&q=80",
+            alt: "E-learning",
+          },
+        ]}
+      />
 
-        {/* Location Section */}
-        <section id="location" className="py-20">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Lokalizacja</h2>
-              <p className="text-muted-foreground text-lg">
-                Zapraszam do mojej sali wykładowej
-              </p>
-            </motion.div>
+      {/* Location Section */}
+      <section id="location" className="py-20">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Lokalizacja</h2>
+            <p className="text-muted-foreground text-lg">
+              Zapraszam do mojej sali wykładowej
+            </p>
+          </motion.div>
 
-            <div className="max-w-4xl mx-auto">
-              <LocationMap />
-            </div>
+          <div className="max-w-4xl mx-auto">
+            <LocationMap />
           </div>
-        </section>
-      </Suspense>
+        </div>
+      </section>
 
       <Contact />
       <Footer />
