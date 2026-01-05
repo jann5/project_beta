@@ -11,6 +11,7 @@ import "./index.css";
 import "./types/global.d.ts";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { CookieConsent } from "@/components/CookieConsent";
 
 // Lazy load route components for better code splitting
 const Landing = lazy(() => import("./pages/Landing.tsx"));
@@ -77,6 +78,7 @@ createRoot(document.getElementById("root")!).render(
                 </Routes>
               </Suspense>
             </ErrorBoundary>
+            <CookieConsent />
           </BrowserRouter>
           <Toaster />
         </ThemeProvider>
