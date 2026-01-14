@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Phone, Mail, ArrowRight, Copy, Check, PhoneCall } from "lucide-react";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
 import {
   Dialog,
@@ -14,9 +16,9 @@ import {
 } from "@/components/ui/dialog";
 
 export default function Contact() {
+  const sendMessage = useMutation(api.messages.send);
   const [copied, setCopied] = useState(false);
   const phoneNumber = "+48 123 456 789";
-  const emailAddress = "kontakt@engleo.pl";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(phoneNumber.replace(/\s/g, ''));
@@ -47,17 +49,15 @@ export default function Contact() {
 
     setIsSubmitting(true);
     try {
-      // Create mailto link with form data
-      const subject = encodeURIComponent(`Wiadomość od ${contactForm.name}`);
-      const body = encodeURIComponent(
-        `Imię i nazwisko: ${contactForm.name}\nEmail: ${contactForm.email}\n\nWiadomość:\n${contactForm.message}`
-      );
-      window.location.href = `mailto:${emailAddress}?subject=${subject}&body=${body}`;
-
-      toast.success("Otwieram program pocztowy...");
+      await sendMessage({
+        name: contactForm.name,
+        email: contactForm.email,
+        content: contactForm.message,
+      });
+      toast.success("Wiadomość została wysłana! Skontaktuję się wkrótce.");
       setContactForm({ name: "", email: "", message: "" });
     } catch (error) {
-      toast.error("Wystąpił błąd podczas otwierania programu pocztowego.");
+      toast.error("Wystąpił błąd podczas wysyłania wiadomości.");
       console.error(error);
     } finally {
       setIsSubmitting(false);
