@@ -8,6 +8,7 @@ export default function Footer() {
         <Link to="/privacy-policy" className="hover:text-primary transition-colors underline underline-offset-4">
           Polityka Prywatności
         </Link>
+        <p className="text-xs opacity-60">made by jan.n5</p>
       </div>
     </footer>
   );
