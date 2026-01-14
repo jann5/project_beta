@@ -5,6 +5,7 @@ import tailwindcss from "@tailwindcss/vite"
 import viteCompression from "vite-plugin-compression"
 
 export default defineConfig({
+  base: './', // Relative paths for static hosting
   plugins: [
     react(),
     tailwindcss(),
@@ -23,6 +24,8 @@ export default defineConfig({
     },
   },
   build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
     rollupOptions: {
       output: {
         manualChunks: {
