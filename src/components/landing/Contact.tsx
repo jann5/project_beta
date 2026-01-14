@@ -18,7 +18,7 @@ import {
 export default function Contact() {
   const sendMessage = useMutation(api.messages.send);
   const [copied, setCopied] = useState(false);
-  const phoneNumber = "+48 123 456 789";
+  const phoneNumber = "502 296 572";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(phoneNumber.replace(/\s/g, ''));
@@ -85,11 +85,11 @@ export default function Contact() {
               <div className="space-y-4 mb-8 text-left inline-block">
                 <div className="flex items-center gap-3 text-muted-foreground">
                   <Mail className="w-5 h-5 text-primary" />
-                  <span>kontakt@engleo.pl</span>
+                  <span>adrianna.nawrot@gmail.com</span>
                 </div>
                 <div className="flex items-center gap-3 text-muted-foreground">
                   <Phone className="w-5 h-5 text-primary" />
-                  <span>+48 123 456 789</span>
+                  <span>502 296 572</span>
                 </div>
               </div>
             </div>
