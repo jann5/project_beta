@@ -32,7 +32,7 @@ export function Navbar() {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 font-bold text-xl hover:opacity-80 transition-opacity">
           <img
-            src="/logo.svg"
+            src="/logo.png"
             alt="Engleo Logo"
             className="h-10 w-auto object-contain"
           />
