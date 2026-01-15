@@ -47,7 +47,7 @@ export const SimpleParticles: React.FC = () => {
           originY: y,
           vx: 0,
           vy: 0,
-          size: Math.random() * 1.5 + 1, // Small: 1-2.5px
+          size: Math.random() * 2.5 + 0.5, // Varied: 0.5-3px
           opacity: Math.random() * 0.4 + 0.3, // Visible: 0.3-0.7
         });
       }

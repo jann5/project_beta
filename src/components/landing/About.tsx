@@ -16,13 +16,13 @@ export default function About() {
       <div className="absolute inset-0 z-0">
         <SimpleParticles />
       </div>
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 relative z-10 pointer-events-none">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="relative"
+            className="relative pointer-events-auto"
           >
             <div className="aspect-square rounded-2xl overflow-hidden shadow-xl">
               <img
@@ -49,7 +49,7 @@ export default function About() {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-6"
+            className="space-y-6 pointer-events-auto"
           >
             <h2 className="text-3xl md:text-4xl font-bold">O mnie</h2>
             <div className="text-lg text-muted-foreground space-y-4">
