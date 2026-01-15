@@ -31,9 +31,9 @@ export function Navbar() {
     <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 font-bold text-xl hover:opacity-80 transition-opacity">
-          <img 
-            src="https://harmless-tapir-303.convex.cloud/api/storage/f5d797b2-34f6-4897-ad1d-c045409fd9bb" 
-            alt="Engleo Logo" 
+          <img
+            src="/logo.svg"
+            alt="Engleo Logo"
             className="h-10 w-auto object-contain"
           />
           <span>Engleo</span>
