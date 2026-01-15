@@ -24,8 +24,12 @@ export default function About() {
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center overflow-hidden">
-              <Languages className="w-32 h-32 text-primary/40" />
+            <div className="aspect-square rounded-2xl overflow-hidden shadow-xl">
+              <img
+                src="/about-adrianna.jpg"
+                alt="Adrianna Nawrot - Lektorka języka angielskiego"
+                className="w-full h-full object-cover"
+              />
             </div>
             <div className="absolute -bottom-6 -right-6 bg-card p-6 rounded-xl shadow-lg border">
               <div className="flex items-center gap-4">
@@ -49,22 +53,16 @@ export default function About() {
             <h2 className="text-3xl md:text-4xl font-bold">O mnie</h2>
             <div className="text-lg text-muted-foreground space-y-4">
               <p>
-                Jestem absolwentką studiów dziennych Filologii Angielskiej z przygotowaniem pedagogicznym Uniwersytetu im. Adama Mickiewicza w Poznaniu oraz Uniwersytetu Ekonomicznego w Poznaniu (Stosunki Międzynarodowe).
+                Jestem lektorką i trenerką języka angielskiego z ponad 15-letnim doświadczeniem w edukacji szkolnej i biznesowej. Uczę dzieci, młodzież oraz dorosłych, pracując zarówno z uczniami indywidualnymi, jak i grupami.
               </p>
               <p>
-                Ukończyłam również Szkołę Tłumaczy i Języków Obcych na Uniwersytecie im. Adama Mickiewicza w Poznaniu. Specjalizacja to tłumaczenia ustne symultaniczne oraz konsekutywne.
+                Jestem absolwentką Filologii Angielskiej z przygotowaniem pedagogicznym Uniwersytetu im. Adama Mickiewicza w Poznaniu oraz Stosunków Międzynarodowych na Uniwersytecie Ekonomicznym w Poznaniu. Ukończyłam także Szkołę Tłumaczy i Języków Obcych UAM (tłumaczenia ustne symultaniczne i konsekutywne).
               </p>
               <p>
-                Doświadczenie zdobywałam jako nauczyciel oraz egzaminator maturalny w liceum ogólnokształcącym (Zespół Szkół Sióstr Urszulanek SJK w Pniewach).
+                Pracowałam jako nauczycielka i egzaminatorka maturalna w liceum ogólnokształcącym. Od kilkunastu lat prowadzę kursy językowe oraz szkolenia dla firm, w tym dla kadry menedżerskiej. Współpracowałam m.in. z firmami SKANSKA, NCC i WAVIN.
               </p>
               <p>
-                Od kilkunastu lat uczę języka angielskiego jako lektor w szkole językowej. Prowadzę również szkolenia językowe dla kadry zarządzającej oraz kursy grupowe dla pracowników firm.
-              </p>
-              <p>
-                Od wielu lat współpracuję z takimi firmami jak SKANSKA, NCC oraz WAVIN (analiza potrzeb szkoleniowych, opracowanie i przeprowadzenie szkolenia językowego dla różnych stanowisk kierowniczych oraz tłumaczenia tekstów specjalistycznych).
-              </p>
-              <p>
-                Tłumaczę książki dla wydawnict literatury angielskiej.
+                Obecnie współpracuję również z międzynarodowym wydawnictwem MM Publications Ltd, gdzie tworzę rozkłady materiału, próbne egzaminy, materiały dodatkowe do podręczników oraz współtworzę publikacje edukacyjne oraz podręczniki. Zajmuję się także tłumaczeniami i korektą merytoryczną materiałów dydaktycznych.
               </p>
             </div>
             <ul className="space-y-4">

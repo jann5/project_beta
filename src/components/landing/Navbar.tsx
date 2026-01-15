@@ -2,11 +2,18 @@ import { ShareDialog } from "@/components/ui/share-dialog";
 import Switch from "@/components/ui/sky-toggle";
 import { useTheme } from "next-themes";
 import { Link, useLocation, useNavigate } from "react-router";
+import { useEffect, useState } from "react";
 
 export function Navbar() {
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+
+  // Prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleNavigation = (id: string) => {
     if (location.pathname !== "/") {
@@ -42,10 +49,12 @@ export function Navbar() {
           <div className="flex items-center gap-2">
             <ShareDialog />
             <div className="origin-right">
-              <Switch 
-                checked={theme === 'dark'} 
-                onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')} 
-              />
+              {mounted && (
+                <Switch
+                  checked={resolvedTheme === 'dark'}
+                  onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
+                />
+              )}
             </div>
           </div>
         </div>

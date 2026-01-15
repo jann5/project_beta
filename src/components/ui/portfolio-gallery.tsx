@@ -159,56 +159,43 @@ export function PortfolioGallery({
           </div>
         </div>
 
-        {/* Mobile marquee layout */}
+        {/* Mobile scrollable layout */}
         <div className="block md:hidden relative pb-8">
           <div
-            className={cn(
-              "group flex overflow-hidden p-2 [--duration:40s] [--gap:1rem] [gap:var(--gap)]",
-              "flex-row"
-            )}
+            className="flex gap-4 overflow-x-auto p-4 snap-x snap-mandatory scrollbar-hide"
+            style={{
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+              WebkitOverflowScrolling: 'touch'
+            }}
           >
-            {Array(marqueeRepeat)
-              .fill(0)
-              .map((_, i) => (
+            {images.map((image, index) => (
+              <div
+                key={index}
+                className="group cursor-pointer flex-shrink-0 snap-center"
+                onClick={() => onImageClick?.(index)}
+              >
                 <div
-                  key={i}
-                  className={cn(
-                    "flex shrink-0 justify-around [gap:var(--gap)]",
-                    "animate-marquee flex-row",
-                    {
-                      "group-hover:[animation-play-state:paused]": pauseOnHover,
-                    }
-                  )}
+                  className="relative aspect-video w-72 rounded-lg overflow-hidden transition-transform duration-300 active:scale-95"
+                  style={{
+                    boxShadow: `
+                      rgba(0, 0, 0, 0.01) 0.796192px 0px 0.796192px 0px,
+                      rgba(0, 0, 0, 0.03) 2.41451px 0px 2.41451px 0px,
+                      rgba(0, 0, 0, 0.08) 6.38265px 0px 6.38265px 0px,
+                      rgba(0, 0, 0, 0.25) 20px 0px 20px 0px
+                    `,
+                  }}
                 >
-                  {images.map((image, index) => (
-                    <div
-                      key={`${i}-${index}`}
-                      className="group cursor-pointer flex-shrink-0"
-                      onClick={() => onImageClick?.(index)}
-                    >
-                      <div
-                        className="relative aspect-video w-64 rounded-lg overflow-hidden transition-transform duration-300 group-hover:scale-105"
-                        style={{
-                          boxShadow: `
-                            rgba(0, 0, 0, 0.01) 0.796192px 0px 0.796192px 0px,
-                            rgba(0, 0, 0, 0.03) 2.41451px 0px 2.41451px 0px,
-                            rgba(0, 0, 0, 0.08) 6.38265px 0px 6.38265px 0px,
-                            rgba(0, 0, 0, 0.25) 20px 0px 20px 0px
-                          `,
-                        }}
-                      >
-                        <img
-                          src={image.src || "/placeholder.svg"}
-                          alt={image.alt}
-                          className="w-full h-full object-cover object-left-top"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </div>
-                    </div>
-                  ))}
+                  <img
+                    src={image.src || "/placeholder.svg"}
+                    alt={image.alt}
+                    className="w-full h-full object-cover object-left-top"
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
-              ))}
+              </div>
+            ))}
           </div>
         </div>
       </div>

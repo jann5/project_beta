@@ -8,35 +8,62 @@ import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Brain, Clock, CheckCircle2, ArrowRight, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { QUESTIONS, SHORT_TEST_IDS, type Question } from "./level-test-data";
+import { QUESTIONS, SHORT_TEST_IDS, GSE_TEST_IDS, type Question } from "./level-test-data";
 import { LevelTestResult } from "./LevelTestResult";
+
+type TestType = "short" | "long" | "gse";
+
+type UserAnswer = {
+  questionId: number;
+  selectedAnswer: string;
+  correctAnswer: string;
+  isCorrect: boolean;
+};
 
 export default function LevelTest() {
   const [isOpen, setIsOpen] = useState(false);
-  const [mode, setMode] = useState<"intro" | "test" | "result">("intro");
-  const [testType, setTestType] = useState<"short" | "long">("short");
+  const [mode, setMode] = useState<"intro" | "test" | "result" | "review">("intro");
+  const [testType, setTestType] = useState<TestType>("short");
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [testQuestions, setTestQuestions] = useState<Question[]>([]);
+  const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([]);
 
-  const startTest = (type: "short" | "long") => {
+  const startTest = (type: TestType) => {
     setTestType(type);
-    // Short: 10 questions (balanced mix), Long: All questions
-    const questions = type === "short" 
-      ? QUESTIONS.filter(q => SHORT_TEST_IDS.includes(q.id))
-      : QUESTIONS;
+    // Short: 10 questions, Long: 25 questions, GSE: 80 questions
+    let questions: Question[];
+    if (type === "short") {
+      questions = QUESTIONS.filter(q => SHORT_TEST_IDS.includes(q.id));
+    } else if (type === "gse") {
+      questions = QUESTIONS.filter(q => GSE_TEST_IDS.includes(q.id));
+    } else {
+      questions = QUESTIONS.slice(0, 25); // First 25 questions for long test
+    }
     setTestQuestions(questions);
     setCurrentQuestion(0);
     setScore(0);
+    setUserAnswers([]);
     setMode("test");
     setSelectedAnswer(null);
   };
 
   const handleAnswer = () => {
     if (!selectedAnswer) return;
-    
-    if (selectedAnswer === testQuestions[currentQuestion].correct) {
+
+    const currentQ = testQuestions[currentQuestion];
+    const isCorrect = selectedAnswer === currentQ.correct;
+
+    // Record the answer
+    setUserAnswers(prev => [...prev, {
+      questionId: currentQ.id,
+      selectedAnswer,
+      correctAnswer: currentQ.correct,
+      isCorrect
+    }]);
+
+    if (isCorrect) {
       setScore(s => s + 1);
     }
 
@@ -99,9 +126,9 @@ export default function LevelTest() {
                         <DialogHeader>
                           <DialogTitle className="text-2xl font-bold text-center">Wybierz rodzaj testu</DialogTitle>
                         </DialogHeader>
-                        
-                        <div className="grid md:grid-cols-2 gap-4 mt-4">
-                          <Card 
+
+                        <div className="grid md:grid-cols-3 gap-4 mt-4">
+                          <Card
                             className="cursor-pointer hover:border-primary transition-colors relative overflow-hidden group"
                             onClick={() => startTest("short")}
                           >
@@ -111,13 +138,13 @@ export default function LevelTest() {
                               </div>
                               <div className="text-center">
                                 <h3 className="font-bold text-lg">Szybki Test</h3>
-                                <p className="text-sm text-muted-foreground">10 pytań • ok. 2 min</p>
+                                <p className="text-sm text-muted-foreground">10 pytań • 2 min</p>
                               </div>
-                              <p className="text-xs text-muted-foreground mt-2">Szybka weryfikacja podstawowej wiedzy.</p>
+                              <p className="text-xs text-muted-foreground mt-2">Podstawowa weryfikacja wiedzy.</p>
                             </CardContent>
                           </Card>
 
-                          <Card 
+                          <Card
                             className="cursor-pointer hover:border-primary transition-colors relative overflow-hidden group"
                             onClick={() => startTest("long")}
                           >
@@ -127,9 +154,25 @@ export default function LevelTest() {
                               </div>
                               <div className="text-center">
                                 <h3 className="font-bold text-lg">Pełny Test</h3>
-                                <p className="text-sm text-muted-foreground">25 pytań • ok. 10 min</p>
+                                <p className="text-sm text-muted-foreground">25 pytań • 10 min</p>
                               </div>
-                              <p className="text-xs text-muted-foreground mt-2">Dokładna analiza Twojego poziomu.</p>
+                              <p className="text-xs text-muted-foreground mt-2">Dokładna analiza poziomu.</p>
+                            </CardContent>
+                          </Card>
+
+                          <Card
+                            className="cursor-pointer hover:border-primary transition-colors relative overflow-hidden group"
+                            onClick={() => startTest("gse")}
+                          >
+                            <CardContent className="p-6 flex flex-col items-center gap-4">
+                              <div className="w-12 h-12 rounded-full bg-orange-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <CheckCircle2 className="w-6 h-6 text-orange-500" />
+                              </div>
+                              <div className="text-center">
+                                <h3 className="font-bold text-lg">Test GSE</h3>
+                                <p className="text-sm text-muted-foreground">80 pytań • 30 min</p>
+                              </div>
+                              <p className="text-xs text-muted-foreground mt-2">Najbardziej szczegółowy test.</p>
                             </CardContent>
                           </Card>
                         </div>
@@ -191,14 +234,109 @@ export default function LevelTest() {
                     )}
 
                     {mode === "result" && (
-                      <LevelTestResult 
+                      <LevelTestResult
                         score={score}
                         totalQuestions={testQuestions.length}
                         level={result.level}
                         desc={result.desc}
                         onRestart={() => setMode("intro")}
                         onClose={() => setIsOpen(false)}
+                        onReview={() => setMode("review")}
                       />
+                    )}
+
+                    {mode === "review" && (
+                      <motion.div
+                        key="review"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        className="space-y-6 max-h-[70vh] overflow-y-auto"
+                      >
+                        <div className="sticky top-0 bg-card z-10 pb-4 border-b">
+                          <h3 className="text-2xl font-bold text-center">Przegląd odpowiedzi</h3>
+                          <p className="text-center text-muted-foreground mt-2">
+                            {score} / {testQuestions.length} poprawnych ({Math.round((score / testQuestions.length) * 100)}%)
+                          </p>
+                        </div>
+
+                        <div className="space-y-4">
+                          {testQuestions.map((question, idx) => {
+                            const userAnswer = userAnswers[idx];
+                            const isCorrect = userAnswer?.isCorrect;
+
+                            return (
+                              <div
+                                key={question.id}
+                                className={cn(
+                                  "p-4 rounded-xl border-2",
+                                  isCorrect ? "border-green-500/50 bg-green-500/5" : "border-red-500/50 bg-red-500/5"
+                                )}
+                              >
+                                <div className="flex items-start gap-3 mb-3">
+                                  <div className={cn(
+                                    "w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold",
+                                    isCorrect ? "bg-green-500 text-white" : "bg-red-500 text-white"
+                                  )}>
+                                    {isCorrect ? "✓" : "✗"}
+                                  </div>
+                                  <div className="flex-1">
+                                    <p className="font-medium text-sm mb-1">
+                                      Pytanie {idx + 1} <span className="text-xs bg-muted px-2 py-0.5 rounded ml-2">{question.level}</span>
+                                    </p>
+                                    <p className="text-base">
+                                      {question.question.split("___").map((part, i, arr) => (
+                                        <span key={i}>
+                                          {part}
+                                          {i < arr.length - 1 && (
+                                            <span className="inline-block w-12 border-b-2 border-primary mx-1"></span>
+                                          )}
+                                        </span>
+                                      ))}
+                                    </p>
+                                  </div>
+                                </div>
+
+                                <div className="ml-9 space-y-2 text-sm">
+                                  <div className={cn(
+                                    "p-2 rounded",
+                                    isCorrect ? "bg-green-500/10" : "bg-red-500/10"
+                                  )}>
+                                    <span className="font-medium">Twoja odpowiedź: </span>
+                                    <span className={isCorrect ? "text-green-700 dark:text-green-400" : "text-red-700 dark:text-red-400"}>
+                                      {userAnswer?.selectedAnswer}
+                                    </span>
+                                  </div>
+
+                                  {!isCorrect && (
+                                    <div className="p-2 rounded bg-green-500/10">
+                                      <span className="font-medium">Prawidłowa odpowiedź: </span>
+                                      <span className="text-green-700 dark:text-green-400">
+                                        {question.correct}
+                                      </span>
+                                    </div>
+                                  )}
+
+                                  {question.explanation && (
+                                    <div className="p-2 rounded bg-muted/50 text-muted-foreground italic">
+                                      💡 {question.explanation}
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+
+                        <div className="sticky bottom-0 bg-card pt-4 border-t mt-6">
+                          <Button
+                            className="w-full rounded-full"
+                            onClick={() => setMode("result")}
+                          >
+                            Powrót do wyniku
+                          </Button>
+                        </div>
+                      </motion.div>
                     )}
                   </AnimatePresence>
                 </div>

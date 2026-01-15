@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Trophy } from "lucide-react";
+import { Trophy, FileText } from "lucide-react";
 
 interface LevelTestResultProps {
   score: number;
@@ -9,9 +9,10 @@ interface LevelTestResultProps {
   desc: string;
   onRestart: () => void;
   onClose: () => void;
+  onReview?: () => void;
 }
 
-export function LevelTestResult({ score, totalQuestions, level, desc, onRestart, onClose }: LevelTestResultProps) {
+export function LevelTestResult({ score, totalQuestions, level, desc, onRestart, onClose, onReview }: LevelTestResultProps) {
   return (
     <motion.div
       key="result"
@@ -43,6 +44,12 @@ export function LevelTestResult({ score, totalQuestions, level, desc, onRestart,
         }}>
           Umów darmową lekcję
         </Button>
+        {onReview && (
+          <Button variant="outline" size="lg" className="w-full gap-2" onClick={onReview}>
+            <FileText className="w-4 h-4" />
+            Zobacz odpowiedzi
+          </Button>
+        )}
         <Button variant="ghost" onClick={onRestart}>
           Spróbuj ponownie
         </Button>
