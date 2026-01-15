@@ -33,8 +33,8 @@ export const SimpleParticles: React.FC = () => {
 
     // Initialize particles
     const initParticles = () => {
-      // LOTS of particles - divided by 1500 means DOUBLE the amount!
-      const particleCount = Math.floor((canvas.width * canvas.height) / 1500);
+      // Same density as original - smaller, subtle particles
+      const particleCount = Math.floor((canvas.width * canvas.height) / 10000);
       particlesRef.current = [];
 
       for (let i = 0; i < particleCount; i++) {
@@ -47,11 +47,10 @@ export const SimpleParticles: React.FC = () => {
           originY: y,
           vx: 0,
           vy: 0,
-          size: Math.random() * 3 + 2, // Much bigger: 2-5px
-          opacity: Math.random() * 0.7 + 0.4, // Much more visible: 0.4-1.0
+          size: Math.random() * 1.5 + 0.5, // Small and subtle: 0.5-2px
+          opacity: Math.random() * 0.3 + 0.2, // Subtle visibility: 0.2-0.5
         });
       }
-      console.log('Particles initialized:', particleCount); // Debug
     };
 
     // Mouse move handler
