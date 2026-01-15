@@ -33,8 +33,8 @@ export const SimpleParticles: React.FC = () => {
 
     // Initialize particles
     const initParticles = () => {
-      // Same density as original - smaller, subtle particles
-      const particleCount = Math.floor((canvas.width * canvas.height) / 10000);
+      // Same density as original AntiGravityCanvas: 0.00015 particles per pixel squared
+      const particleCount = Math.floor(canvas.width * canvas.height * 0.00015);
       particlesRef.current = [];
 
       for (let i = 0; i < particleCount; i++) {
@@ -47,8 +47,8 @@ export const SimpleParticles: React.FC = () => {
           originY: y,
           vx: 0,
           vy: 0,
-          size: Math.random() * 1.5 + 0.5, // Small and subtle: 0.5-2px
-          opacity: Math.random() * 0.3 + 0.2, // Subtle visibility: 0.2-0.5
+          size: Math.random() * 1.5 + 1, // Small: 1-2.5px
+          opacity: Math.random() * 0.4 + 0.3, // Visible: 0.3-0.7
         });
       }
     };
