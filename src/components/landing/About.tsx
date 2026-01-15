@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { SimpleParticles } from "@/components/ui/simple-particles";
 import { Star, CheckCircle2 } from "lucide-react";
 
 export default function About() {
@@ -12,6 +13,9 @@ export default function About() {
 
   return (
     <section id="about" className="py-20 bg-muted/30 relative overflow-hidden">
+      <div className="absolute inset-0 z-0 opacity-30">
+        <SimpleParticles />
+      </div>
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <motion.div
