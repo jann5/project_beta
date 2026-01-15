@@ -13,7 +13,7 @@ export default function About() {
 
   return (
     <section id="about" className="py-20 bg-muted/30 relative overflow-hidden">
-      <div className="absolute inset-0 z-0 opacity-40">
+      <div className="absolute inset-0 z-0">
         <SimpleParticles />
       </div>
       <div className="container mx-auto px-4 relative z-10">

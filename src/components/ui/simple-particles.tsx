@@ -104,10 +104,11 @@ export const SimpleParticles: React.FC = () => {
         particle.x += particle.vx;
         particle.y += particle.vy;
 
-        // Draw particle
+        // Draw particle - white/light color like original
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(128, 128, 128, ${particle.opacity})`;
+        // Use bright white color that's visible on both light and dark backgrounds
+        ctx.fillStyle = `rgba(255, 255, 255, ${particle.opacity})`;
         ctx.fill();
       });
 
