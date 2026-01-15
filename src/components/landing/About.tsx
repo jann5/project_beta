@@ -29,6 +29,7 @@ export default function About() {
                 src="/about-adrianna.jpg"
                 alt="Adrianna Nawrot - Lektorka języka angielskiego"
                 className="w-full h-full object-cover"
+                style={{ objectPosition: 'center 30%' }}
               />
             </div>
             <div className="absolute -bottom-6 -right-6 bg-card p-6 rounded-xl shadow-lg border">
