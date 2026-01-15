@@ -14,15 +14,15 @@ interface LocationMapProps {
 export function LocationMap({
   className,
   address = "Jesionowa 15, 64-550 Duszniki",
-  locationName = "Sala bankietowa Halszka",
-  googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=Sala+bankietowa+Halszka+Jesionowa+15+Duszniki"
+  locationName = "Engleo",
+  googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=52.44840777809101,16.405883405764694"
 }: LocationMapProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   
   const toggleExpand = () => setIsExpanded(!isExpanded);
 
-  // Simplified query for better compatibility
-  const mapQuery = encodeURIComponent(`${locationName}, ${address}`);
+  // Use coordinates for map display
+  const mapQuery = "52.44840777809101,16.405883405764694";
 
   return (
     <div className={cn("relative w-full max-w-3xl mx-auto", className)}>
